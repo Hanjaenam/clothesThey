@@ -1,0 +1,3 @@
+- header min-width
+- board min-width
+- board item list resposive center

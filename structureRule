@@ -1,0 +1,5 @@
+*_Container   : business Logic, state management
+*_View        : Layout (Stateless View Component), Pure Function (no hooks)
+*_Styles      : JSS
+*_Redux.js    : mapStateToProps, mapDispatchToProps, and 
+              :connect functionality of Redux
