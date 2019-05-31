@@ -1,3 +1,2 @@
-- header min-width
-- board min-width
-- board item list resposive center
+- modal animation
+- commments

@@ -16,8 +16,15 @@ export const paddingX = size => css`
 export const hoverEffect = {
   button: (color = theme.PRIMARY) => css`
     &:hover {
-      color: white !important;
-      background-color: ${color} !important;
+      color: white;
+      background-color: ${color};
+    }
+    span {
+      transition: scale;
+    }
+    &:active span {
+      display: block;
+      transform: scale(0.9);
     }
   `,
   shadow: (
@@ -38,13 +45,6 @@ export const hoverEffect = {
     `,
 };
 
-export const buttonCss = color => css`
-  all: unset;
-  cursor: pointer;
-  transition: ${props => props.theme.TRANSITION.REGULAR};
-  ${color ? hoverEffect.button(color) : hoverEffect.button()}
-`;
-
 // export const limitText = (lineHeight: number, lineNumber: number) => css`
 //   overflow: hidden;
 //   text-overflow: ellipsis; /* ... 처리 */
@@ -56,15 +56,47 @@ export const buttonCss = color => css`
 //   -webkit-box-orient: vertical;
 // `;
 
+export const focusedEffect = () => css`
+  border: 1px solid ${props => props.theme.NOT_FOCUSED};
+  &:focus {
+    border: 1px solid ${props => props.theme.PRIMARY};
+  }
+`;
+
+export const placeholderEffect = (type = 'input') => css`
+  position: relative;
+  span {
+    position: absolute;
+    top: 50%;
+    left: ${props => props.theme.GAP.REGULAR};
+    transform: translateY(-50%);
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 100;
+    font-size: ${props => props.theme.FONT_SIZE.HELP};
+    transition: ${props => props.theme.TRANSITION.REGULAR};
+    pointer-events: none;
+  }
+  ${type}:not(:focus) ~ span {
+    &.hide {
+      opacity: 0;
+    }
+  }
+  ${type}:focus ~ span {
+    color: black;
+    font-weight: 500;
+    top: 0;
+    background-color: white;
+  }
+`;
+
 export const pairCss = {
   inputButton: type => css`
     ${type} {
-      border: 1px solid ${props => props.theme.NOT_FOCUSED};
+      ${focusedEffect()}
       border-radius: ${props => props.theme.BORDER_RADIUS.REGULAR};
       border-bottom-right-radius: 0;
       border-top-right-radius: 0;
       &:focus {
-        border: 1px solid ${props => props.theme.PRIMARY};
         & ~ button {
           border: 1px solid ${props => props.theme.PRIMARY};
           border-left: none;

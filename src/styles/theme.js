@@ -35,8 +35,9 @@ export default {
     HOME_HEADER: '60px',
     BOARD: {
       HEADER: '45px',
-      ITEM_CONTAINER: '30px',
+      SEARCH_INPUT: '15rem',
       PAGINATION_NUMBER: '30px',
+      ITEM_LIST: '2.5rem',
     },
     PHOTO: {
       WEEKLY_BEST: {
@@ -51,6 +52,6 @@ export default {
     BOARD_CONTAINER: '992px',
   },
   TRANSITION: {
-    REGULAR: '0.5s',
+    REGULAR: '0.3s',
   },
 };
