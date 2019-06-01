@@ -23,7 +23,6 @@ export const Container = styled.div`
   > div:last-child {
     margin-bottom: 0;
   }
-  z-index: 10;
 `;
 
 export const InputContainer = styled.div`

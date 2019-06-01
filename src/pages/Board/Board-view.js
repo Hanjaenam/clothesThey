@@ -4,6 +4,7 @@ import Post from 'components/Board/Post';
 import testImg from 'assets/testImg.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
 import * as jss from './Board-styles';
 
 const BoardPresenterView = ({ onClick }) => (
@@ -48,5 +49,13 @@ const BoardPresenterView = ({ onClick }) => (
     </jss.GoToTheTop>
   </jss.Container>
 );
+
+BoardPresenterView.propTypes = {
+  boardItemListPosition: PropTypes.string,
+};
+
+BoardPresenterView.defaultProps = {
+  boardItemListPosition: undefined,
+};
 
 export default BoardPresenterView;

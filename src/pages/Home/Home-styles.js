@@ -6,7 +6,6 @@ export const Container = styled.main`
   max-width: ${props => `${props.theme.breakpoints.xl}px`};
   ${breakpoints('xl')`margin:0 auto;`}
   position:relative;
-  height: ${props => `calc(100vh - ${props.theme.SIZE.HOME_HEADER})`};
 `;
 
 export const ThumbnailContainer = styled.section`
@@ -14,5 +13,6 @@ export const ThumbnailContainer = styled.section`
 `;
 
 export const ScrollY = styled.div`
+  height: ${props => `calc(100vh - ${props.theme.SIZE.HOME_HEADER})`};
   overflow-y: scroll;
 `;

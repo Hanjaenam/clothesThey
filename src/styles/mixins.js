@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css, keyframes } from 'styled-components';
 import theme from 'styles/theme';
 
 export const marginX = size => css`
@@ -13,16 +13,20 @@ export const paddingX = size => css`
   padding: 0 ${props => props.theme.GAP[size]};
 `;
 
+export const navLinkActiveStyle = (color = theme.PRIMARY) => ({
+  color: 'white',
+  backgroundColor: color,
+});
+
 export const hoverEffect = {
   button: (color = theme.PRIMARY) => css`
     &:hover {
-      color: white;
-      background-color: ${color};
+      ${navLinkActiveStyle(color)}
     }
-    span {
+    > span {
       transition: scale;
     }
-    &:active span {
+    &:active > span {
       display: block;
       transform: scale(0.9);
     }
@@ -73,12 +77,14 @@ export const placeholderEffect = (type = 'input') => css`
     color: rgba(0, 0, 0, 0.5);
     font-weight: 100;
     font-size: ${props => props.theme.FONT_SIZE.HELP};
-    transition: ${props => props.theme.TRANSITION.REGULAR};
+    transition: top ${props => props.theme.TRANSITION.REGULAR};
     pointer-events: none;
   }
-  ${type}:not(:focus) ~ span {
-    &.hide {
-      opacity: 0;
+  ${type}:not (:focus) {
+    &[placeholder-fix='true'] ~ span {
+      top: 0;
+      background-color: white;
+      color: black;
     }
   }
   ${type}:focus ~ span {
@@ -90,7 +96,7 @@ export const placeholderEffect = (type = 'input') => css`
 `;
 
 export const pairCss = {
-  inputButton: type => css`
+  inputButton: (type = 'input') => css`
     ${type} {
       ${focusedEffect()}
       border-radius: ${props => props.theme.BORDER_RADIUS.REGULAR};
@@ -104,12 +110,43 @@ export const pairCss = {
         }
       }
     }
-    button {
+    button,
+    input[type="button"] {
       border: 1px solid ${props => props.theme.NOT_FOCUSED};
       border-radius: ${props => props.theme.BORDER_RADIUS.REGULAR};
       border-bottom-left-radius: 0;
       border-top-left-radius: 0;
       border-left: none;
+      &:hover {
+        ${hoverEffect.button()}
+      }
     }
+  `,
+};
+
+export const modal = {
+  fadeIn: css`
+    animation: ${keyframes`
+  0%{opacity:0;}
+  100%{opacity:1;}
+  `} 0.25s ease-in both;
+  `,
+  fadeOut: css`
+    animation: ${keyframes`
+  0%{opacity:1;}
+  100%{opacity:0;}
+  `} 0.25s ease-in both;
+  `,
+  slideUp: css`
+    animation: ${keyframes`
+  0%{transform:translateY(60%);}
+  100%{transform:translateY(40%);}
+  `} 0.25s ease-in both;
+  `,
+  slideDown: css`
+    animation: ${keyframes`
+  0%{transform:translateY(40%);}
+  100%{transform:translateY(60%);}
+  `} 0.25s ease-in both;
   `,
 };

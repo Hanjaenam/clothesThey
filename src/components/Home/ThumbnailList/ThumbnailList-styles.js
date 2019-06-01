@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { hoverEffect } from 'styles/mixins';
+import { Button } from 'components/Common/Button/Button-styles';
 
 export const Container = styled.article`
   margin: ${props => props.theme.GAP.REGULAR} 0;
@@ -31,15 +32,34 @@ export const Title = styled.p`
 `;
 
 export const ThumbnailContainer = styled.div`
-  ${props => {
-    if (props.title === 'weeklyBest') {
-      return css`
-        display: flex;
-      `;
-    }
-    return css`
-      display: flex;
-      justify-content: space-around;
-    `;
-  }}
+  display: flex;
+  justify-content: center;
+  position: relative;
+`;
+
+export const ArrowButton = styled(Button)`
+  border: 0;
+  box-sizing: border-box;
+  z-index: 10;
+  position: absolute;
+  height: 100%;
+  @media screen and (min-width: 1300px) {
+    position: relative;
+    height: auto;
+    padding: 0 ${props => props.theme.GAP.REGULAR};
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: ${props => props.theme.PRIMARY};
+  }
+`;
+
+export const LeftButton = styled(ArrowButton)`
+  top: 0;
+  left: 0;
+`;
+
+export const RightButton = styled(ArrowButton)`
+  top: 0;
+  right: 0;
 `;

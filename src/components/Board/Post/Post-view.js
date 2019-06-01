@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faComments } from '@fortawesome/free-regular-svg-icons';
+import CommentList from 'components/Board/CommentList';
 import * as jss from './Post-styles';
 
 const PostView = ({
@@ -11,8 +12,10 @@ const PostView = ({
   likeNumber,
   commentNumber,
   imageSrc,
+  visibleComment,
+  toggleVisibleComment,
 }) => (
-  <jss.Container id={id}>
+  <jss.Container>
     <jss.ThumbnailContainer>
       <jss.Thumbnail src={imageSrc} />
     </jss.ThumbnailContainer>
@@ -20,16 +23,24 @@ const PostView = ({
       <jss.Title>{title}</jss.Title>
       <jss.Content>{content}</jss.Content>
       <jss.ItemList>
-        <jss.Item>
-          <FontAwesomeIcon icon={faThumbsUp} />
-          <jss.LikeNumber>{likeNumber}</jss.LikeNumber>
-        </jss.Item>
-        <jss.Item>
-          <FontAwesomeIcon icon={faComments} />
-          <jss.CommentNumber>{commentNumber}</jss.CommentNumber>
-        </jss.Item>
+        <jss.ItemButton>
+          <span>
+            <FontAwesomeIcon icon={faThumbsUp} />
+            <span>{likeNumber}</span>
+          </span>
+        </jss.ItemButton>
+        <jss.ItemButton
+          visibleComment={visibleComment}
+          onClick={() => toggleVisibleComment()}
+        >
+          <span>
+            <FontAwesomeIcon icon={faComments} />
+            <span>{commentNumber}</span>
+          </span>
+        </jss.ItemButton>
       </jss.ItemList>
     </jss.ContentContainer>
+    {visibleComment ? <CommentList id={id} /> : null}
   </jss.Container>
 );
 
@@ -40,6 +51,8 @@ PostView.propTypes = {
   content: PropTypes.string.isRequired,
   likeNumber: PropTypes.number.isRequired,
   commentNumber: PropTypes.number.isRequired,
+  visibleComment: PropTypes.bool.isRequired,
+  toggleVisibleComment: PropTypes.func.isRequired,
 };
 
 export default PostView;

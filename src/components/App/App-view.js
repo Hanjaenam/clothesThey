@@ -7,9 +7,19 @@ import BoardPresenter from 'pages/Board';
 import UploadPost from 'components/Modal/UploadPost';
 import ModalSign from 'components/Modal/Sign';
 import Store from 'store';
+import ModalWrapper from 'components/Common/ModalWrapper';
+import {
+  hideModalUploadBoard,
+  hideModalSign,
+} from 'components/App/App-reducer';
 import * as jss from './App-styles';
 
-const AppView = ({ modalUploadBoard, modalSign, dispatch, signTitle }) => {
+const AppView = ({
+  modalUploadBoardVisible,
+  modalSignVisible,
+  dispatch,
+  signTitle,
+}) => {
   return (
     <Router>
       <Store.Provider value={dispatch}>
@@ -20,22 +30,32 @@ const AppView = ({ modalUploadBoard, modalSign, dispatch, signTitle }) => {
             <Route path="/board/:category" component={BoardPresenter} />
           </Switch>
         </jss.Container>
-        {modalUploadBoard ? <UploadPost /> : null}
-        {modalSign ? <ModalSign title={signTitle} /> : null}
+        <ModalWrapper
+          visible={modalUploadBoardVisible}
+          hideModal={() => dispatch(hideModalUploadBoard())}
+        >
+          <UploadPost />
+        </ModalWrapper>
+        <ModalWrapper
+          visible={modalSignVisible}
+          hideModal={() => dispatch(hideModalSign())}
+        >
+          <ModalSign title={signTitle} />
+        </ModalWrapper>
       </Store.Provider>
     </Router>
   );
 };
 
 AppView.propTypes = {
-  modalUploadBoard: PropTypes.bool,
-  modalSign: PropTypes.bool,
+  modalUploadBoardVisible: PropTypes.bool,
+  modalSignVisible: PropTypes.bool,
   signTitle: PropTypes.string,
 };
 
 AppView.defaultProps = {
-  modalUploadBoard: false,
-  modalSign: false,
+  modalUploadBoardVisible: false,
+  modalSignVisible: false,
   signTitle: '',
 };
 

@@ -5,6 +5,7 @@ export default {
   SUCCESS: '3',
   DANGER: '4',
   BACKGROUND_COLOR: 'rgba(0,0,0,.1)',
+  COMMENT: 'rgba(0,0,0,.1)',
   FONT_SIZE: {
     REGULAR: '1rem',
     TITLE: '1.3rem',
@@ -40,10 +41,7 @@ export default {
       ITEM_LIST: '2.5rem',
     },
     PHOTO: {
-      WEEKLY_BEST: {
-        HEIGHT: '350px',
-        WIDTH: '400px',
-      },
+      WEEKLY_BEST: '400px',
       SMALL_BOARD: '250px',
       BOARD: '400px',
     },

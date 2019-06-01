@@ -6,17 +6,20 @@ const RouterContainer = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   // const [showUploadBoard, setUploadBoard] = useState(undefined);
   useEffect(() => {
-    if (state.getIn(['modal', 'uploadBoard']) === true) {
+    if (
+      state.getIn(['modal', 'uploadBoard', 'visible']) ||
+      state.getIn(['modal', 'sign', 'visible'])
+    ) {
       document.body.style.overflowY = 'hidden';
-    } else if (state.getIn(['modal', 'uploadBoard']) === false) {
+    } else {
       document.body.style.overflowY = 'auto';
     }
   });
   return (
     <AppView
       dispatch={dispatch}
-      modalUploadBoard={state.getIn(['modal', 'uploadBoard'])}
-      modalSign={state.getIn(['modal', 'sign', 'visible'])}
+      modalUploadBoardVisible={state.getIn(['modal', 'uploadBoard', 'visible'])}
+      modalSignVisible={state.getIn(['modal', 'sign', 'visible'])}
       signTitle={state.getIn(['modal', 'sign', 'title'])}
     />
   );

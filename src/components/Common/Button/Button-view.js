@@ -6,4 +6,5 @@ const Button = ({ children, ...props }) => (
     <span>{children}</span>
   </jss.Button>
 );
+
 export default Button;

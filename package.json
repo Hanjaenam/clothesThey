@@ -26,6 +26,27 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "airbnb",
+      "prettier"
+    ],
+    "rules": {
+      "react/prefer-stateless-function": 0,
+      "react/jsx-filename-extension": 0,
+      "react/jsx-one-expression-per-line": 0
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "paths": [
+            "src"
+          ]
+        }
+      }
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",

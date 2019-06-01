@@ -19,6 +19,7 @@ const BoardContainer = () => {
   useEffect(() => {
     setPosition();
     window.addEventListener('resize', setPosition);
+    window.removeEventListener('resize', setPosition);
   });
   return <BoardView onClick={onClick} />;
 };

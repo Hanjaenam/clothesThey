@@ -5,7 +5,7 @@ import * as jss from './ModalSign-styles';
 
 const ModalSign = ({
   title,
-  onClick,
+  onCancel,
   onMouseLeave,
   onMouseEnter,
   nickname,
@@ -13,7 +13,11 @@ const ModalSign = ({
   confirmPassword,
 }) => {
   return (
-    <jss.Container onMouseLeave={onMouseLeave} onMouseEnter={onMouseEnter}>
+    <jss.Container
+      onMouseLeave={onMouseLeave}
+      onMouseEnter={onMouseEnter}
+      className="modal-sign"
+    >
       <span>{title}</span>
       <jss.InputContainer>
         <jss.Input
@@ -22,23 +26,21 @@ const ModalSign = ({
           required
           onChange={nickname.onChange}
         />
-        <span className={nickname.value === '' ? null : 'hide'}>닉네임</span>
+        <span>닉네임</span>
       </jss.InputContainer>
       <jss.InputContainer>
         <jss.Input required onChange={password.onChange} />
-        <span className={password.value === '' ? null : 'hide'}>비밀번호</span>
+        <span>비밀번호</span>
       </jss.InputContainer>
       {title === '회원가입' ? (
         <jss.InputContainer>
           <jss.Input onChange={confirmPassword.onChange} required />
-          <span className={confirmPassword.value === '' ? null : 'hide'}>
-            비밀번호확인
-          </span>
+          <span>비밀번호확인</span>
         </jss.InputContainer>
       ) : null}
       <jss.ButtonContainer className="sign">
         <Button>확인</Button>
-        <Button onClick={onClick}>취소</Button>
+        <Button onClick={onCancel}>취소</Button>
       </jss.ButtonContainer>
     </jss.Container>
   );
@@ -46,7 +48,7 @@ const ModalSign = ({
 
 ModalSign.propTypes = {
   title: PropTypes.string,
-  onClick: PropTypes.func,
+  onCancel: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func,
   onMouseEnter: PropTypes.func,
   nickname: PropTypes.shape({
@@ -65,7 +67,6 @@ ModalSign.propTypes = {
 
 ModalSign.defaultProps = {
   title: '',
-  onClick: () => console.log('error'),
   onMouseLeave: () => console.log('error'),
   onMouseEnter: () => console.log('error'),
 };

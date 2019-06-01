@@ -1,14 +1,16 @@
 import styled from 'styled-components';
-import { hoverEffect } from 'styles/mixins';
+import { Button } from 'components/Common/Button/Button-styles';
+import { navLinkActiveStyle } from 'styles/mixins';
 
 export const Container = styled.article`
-  height: ${props => props.theme.SIZE.PHOTO.BOARD};
   transition: ${props => props.theme.TRANSITION.REGULAR};
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: ${props => props.theme.BORDER_RADIUS.SMALL};
   margin: ${props => props.theme.GAP.SMALL} auto;
   padding: ${props => props.theme.GAP.SMALL};
-  display: flex;
+  display: grid;
+  grid-template-columns: ${props => props.theme.SIZE.PHOTO.BOARD} auto;
+  grid-template-rows: ${props => props.theme.SIZE.PHOTO.BOARD} auto;
   background: white;
   position: relative;
   width: ${props => `${props.theme.breakpoints.md}px`};
@@ -27,7 +29,7 @@ export const Thumbnail = styled.img`
 `;
 
 export const ContentContainer = styled.article`
-  flex: 1;
+  /* flex: 1; */
   padding: 0 ${props => props.theme.GAP.LARGE};
   padding-top: ${props => props.theme.GAP.REGULAR};
   display: grid;
@@ -55,17 +57,11 @@ export const ItemList = styled.div`
   padding-top: ${props => props.theme.GAP.SMALL};
 `;
 
-export const Item = styled.div`
-  padding: ${props => props.theme.GAP.SMALL};
-  transition: 0.5s;
-  border-radius: ${props => props.theme.BORDER_RADIUS.SMALL};
-  ${hoverEffect.button('black')};
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-column-gap: ${props => props.theme.GAP.SMALL};
-  cursor: pointer;
+export const ItemButton = styled(Button)`
+  border: 0;
+  margin-right: ${props => props.theme.GAP.SMALL};
+  svg {
+    margin-right: 1px;
+  }
+  ${props => (props.visibleComment ? navLinkActiveStyle() : null)}
 `;
-
-export const LikeNumber = styled.span``;
-
-export const CommentNumber = styled.span``;

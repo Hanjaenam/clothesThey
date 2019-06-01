@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { hoverEffect, pairCss } from 'styles/mixins';
 
 export const ItemContainer = styled.div`
-  display: grid;
-  /* display: none; */
+  /* display: grid; */
+  display: none;
   grid-template-columns: 1fr 1fr 1fr;
   background-color: white;
   position: fixed;
@@ -15,7 +15,7 @@ export const ItemContainer = styled.div`
   border-bottom-left-radius: ${props => props.theme.BORDER_RADIUS.REGULAR};
   border-bottom-right-radius: ${props => props.theme.BORDER_RADIUS.REGULAR};
   align-items: center;
-  /* top: 0; */
+  top: 0;
   left: 0;
   z-index: 1;
 `;
@@ -23,7 +23,7 @@ export const ItemContainer = styled.div`
 export const SearchContainer = styled.div`
   display: flex;
   justify-self: flex-start;
-  ${pairCss.inputButton('input')}
+  ${pairCss.inputButton()}
   height: 100%;
 `;
 

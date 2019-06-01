@@ -16,7 +16,7 @@ const ModalSignContainer = ({ title }) => {
   const onMouseEnter = event => {
     event.target.classList.add('focused');
   };
-  const onClick = () => {
+  const onCancel = () => {
     dispatch(hideModalSign());
   };
   return (
@@ -27,7 +27,7 @@ const ModalSignContainer = ({ title }) => {
       confirmPassword={confirmPassword}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      onClick={onClick}
+      onCancel={onCancel}
     />
   );
 };

@@ -10,7 +10,7 @@ const UploadContainer = () => {
   const dispatch = useContext(Store);
   return (
     <UploadView
-      hideModalUploadBoard={() => dispatch(hideModalUploadBoard())}
+      onCancel={() => dispatch(hideModalUploadBoard())}
       title={title}
       content={content}
     />

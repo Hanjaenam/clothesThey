@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ButtonView from './Button-view';
 
 const ButtonContainer = ({ children, ...props }) => {

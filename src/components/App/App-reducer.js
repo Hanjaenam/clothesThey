@@ -2,7 +2,9 @@ import { Map } from 'immutable';
 
 export const initialState = Map({
   modal: {
-    uploadBoard: false,
+    uploadBoard: {
+      visible: false,
+    },
     sign: {
       visible: false,
       title: '',
@@ -36,9 +38,9 @@ export const setModalSignTitle = title => ({
 export default (state, action) => {
   switch (action.type) {
     case SHOW_MODAL_UPLOAD_BOARD:
-      return state.setIn(['modal', 'uploadBoard'], true);
+      return state.setIn(['modal', 'uploadBoard', 'visible'], true);
     case HIDE_MODAL_UPLOAD_BOARD:
-      return state.setIn(['modal', 'uploadBoard'], false);
+      return state.setIn(['modal', 'uploadBoard', 'visible'], false);
     case SHOW_MODAL_SIGN:
       return state.setIn(['modal', 'sign', 'visible'], true);
     case HIDE_MODAL_SIGN:

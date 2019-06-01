@@ -2,6 +2,11 @@ import React from 'react';
 import Thumbnail from 'components/Home/Thumbnail';
 import testImg from 'assets/testImg.png';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faChevronRight,
+  faChevronLeft,
+} from '@fortawesome/free-solid-svg-icons';
 import * as jss from './ThumbnailList-styles';
 
 const ThumbnailList = ({ category, LINK }) => (
@@ -14,12 +19,26 @@ const ThumbnailList = ({ category, LINK }) => (
       </jss.LinkedTitle>
     )}
     <jss.ThumbnailContainer category={category}>
+      {category === 'Weekly Best' ? (
+        <jss.LeftButton>
+          <span>
+            <FontAwesomeIcon icon={faChevronLeft} className="fa-2x" />
+          </span>
+        </jss.LeftButton>
+      ) : null}
       <Thumbnail title="test" imageSrc={testImg} category={category} />
       <Thumbnail title="test" imageSrc={testImg} category={category} />
       <Thumbnail title="test" imageSrc={testImg} category={category} />
       {category === 'Weekly Best' ? null : (
         <Thumbnail title="test" imageSrc={testImg} category={category} />
       )}
+      {category === 'Weekly Best' ? (
+        <jss.RightButton>
+          <span>
+            <FontAwesomeIcon icon={faChevronRight} className="fa-2x" />
+          </span>
+        </jss.RightButton>
+      ) : null}
     </jss.ThumbnailContainer>
   </jss.Container>
 );

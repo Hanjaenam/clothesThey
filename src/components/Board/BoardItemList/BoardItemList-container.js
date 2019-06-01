@@ -9,33 +9,26 @@ const BoardItemListContainer = () => {
     const itemContainer = document.querySelector(
       `.${ItemContainer.styledComponentId}`,
     );
-    if (window.scrollY > 0 && window.scrollY < 45) {
+    if (window.scrollY < 45) {
       itemContainer.style.top = `${45 - window.scrollY}px`;
     } else if (window.scrollY >= 45) {
       itemContainer.style.top = '0px';
     } else if (window.scrollY <= 0) {
       itemContainer.style.top = '45px';
     }
-    itemContainer.style.display = 'grid';
   };
-  const scrollHandler = event => {
-    const { currentTarget } = event;
+  const initiPosition = () => {
     const itemContainer = document.querySelector(
       `.${ItemContainer.styledComponentId}`,
     );
-    if (currentTarget.scrollY > 0 && currentTarget.scrollY < 45) {
-      itemContainer.style.top = `${45 - currentTarget.scrollY}px`;
-    } else if (currentTarget.scrollY >= 45) {
-      itemContainer.style.top = '0px';
-    } else if (currentTarget.scrollY <= 0) {
-      itemContainer.style.top = '45px';
-    }
+    setPosition();
+    itemContainer.style.display = 'grid';
   };
   useEffect(() => {
-    setPosition();
-    window.addEventListener('scroll', scrollHandler);
+    initiPosition();
+    window.addEventListener('scroll', setPosition);
     return () => {
-      window.removeEventListener('scroll', scrollHandler);
+      window.removeEventListener('scroll', setPosition);
     };
   });
   const dispatch = useContext(Store);

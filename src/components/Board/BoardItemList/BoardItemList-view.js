@@ -10,7 +10,9 @@ const BoardItemListView = ({ showModalUploadBoard }) => (
     <jss.SearchContainer>
       <jss.SearchInput type="text" placeholder="Search" />
       <jss.Button>
-        <FontAwesomeIcon icon={faSearch} />
+        <span>
+          <FontAwesomeIcon icon={faSearch} />
+        </span>
       </jss.Button>
     </jss.SearchContainer>
     <jss.PaginationContainer>
