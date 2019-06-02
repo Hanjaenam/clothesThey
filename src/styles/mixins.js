@@ -80,7 +80,7 @@ export const placeholderEffect = (type = 'input') => css`
     transition: top ${props => props.theme.TRANSITION.REGULAR};
     pointer-events: none;
   }
-  ${type}:not (:focus) {
+  ${type}:not(:focus) {
     &[placeholder-fix='true'] ~ span {
       top: 0;
       background-color: white;

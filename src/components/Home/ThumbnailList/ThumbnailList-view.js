@@ -9,7 +9,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import * as jss from './ThumbnailList-styles';
 
-const ThumbnailList = ({ category, LINK }) => (
+const LINK = {
+  '10대': 'teenager',
+  대학생: 'college',
+  일반인: 'ordinary',
+  자유: 'free',
+};
+
+const ThumbnailList = ({ category }) => (
   <jss.Container>
     {category === 'Weekly Best' ? (
       <jss.Title>Weekly Best</jss.Title>
@@ -45,7 +52,6 @@ const ThumbnailList = ({ category, LINK }) => (
 
 ThumbnailList.propTypes = {
   category: PropTypes.string.isRequired,
-  LINK: PropTypes.shape({}).isRequired,
 };
 
 export default ThumbnailList;

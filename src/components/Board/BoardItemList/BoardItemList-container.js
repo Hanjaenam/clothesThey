@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import Store from 'store';
-import { showModalUploadBoard } from 'components/App/App-reducer';
+import AppContext, { showModalUploadBoard } from 'components/App/App-store';
 import BoardItemListView from './BoardItemList-view';
 import { ItemContainer } from './BoardItemList-styles';
 
 const BoardItemListContainer = () => {
+  const appContext = useContext(AppContext);
   const setPosition = () => {
     const itemContainer = document.querySelector(
       `.${ItemContainer.styledComponentId}`,
@@ -31,10 +31,9 @@ const BoardItemListContainer = () => {
       window.removeEventListener('scroll', setPosition);
     };
   });
-  const dispatch = useContext(Store);
   return (
     <BoardItemListView
-      showModalUploadBoard={() => dispatch(showModalUploadBoard())}
+      showModalUploadBoard={() => appContext[1](showModalUploadBoard())}
     />
   );
 };

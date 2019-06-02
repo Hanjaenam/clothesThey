@@ -6,6 +6,7 @@ export default {
   DANGER: '4',
   BACKGROUND_COLOR: 'rgba(0,0,0,.1)',
   COMMENT: 'rgba(0,0,0,.1)',
+  NOT_FOUND: 'rgba(0,0,0,.1)',
   FONT_SIZE: {
     REGULAR: '1rem',
     TITLE: '1.3rem',

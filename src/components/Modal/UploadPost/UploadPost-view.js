@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'components/Common/Button';
+import LoadingComponent from 'components/Loading';
 import * as jss from './UploadPost-styles';
 
 const UploadPost = ({ onCancel, title, content }) => (
@@ -19,7 +20,10 @@ const UploadPost = ({ onCancel, title, content }) => (
         <span>내용</span>
       </jss.InputContatiner>
       <jss.ButtonContainer>
-        <Button>확인</Button>
+        <Button>
+          {/* <LoadingComponent modal /> */}
+          확인
+        </Button>
         <Button onClick={onCancel}>취소</Button>
       </jss.ButtonContainer>
     </jss.UploadContentContainer>

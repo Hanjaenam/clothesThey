@@ -40,16 +40,17 @@ export const ThumbnailContainer = styled.div`
 export const ArrowButton = styled(Button)`
   border: 0;
   box-sizing: border-box;
-  z-index: 10;
+  z-index: 1;
   position: absolute;
   height: 100%;
+  background-color: transparent;
   @media screen and (min-width: 1300px) {
     position: relative;
     height: auto;
     padding: 0 ${props => props.theme.GAP.REGULAR};
   }
   &:hover {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.1);
     color: ${props => props.theme.PRIMARY};
   }
 `;

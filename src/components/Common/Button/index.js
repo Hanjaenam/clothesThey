@@ -1,1 +1,1 @@
-export { default } from './Button-container';
+export { default } from './Button-view';

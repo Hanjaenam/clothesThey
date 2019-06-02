@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react';
-import Store from 'store';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import PostView from './Post-view';
 
@@ -13,11 +12,11 @@ const useComment = (initialValue = false) => {
 
 const PostContainer = ({
   id,
-  imageSrc,
   title,
   content,
   likeNumber,
   commentNumber,
+  imageSrc,
 }) => {
   const { visibleComment, toggle: toggleVisibleComment } = useComment(false);
   return (
@@ -28,7 +27,6 @@ const PostContainer = ({
       likeNumber={likeNumber}
       commentNumber={commentNumber}
       imageSrc={imageSrc}
-      setUploadBoard={useContext(Store)}
       visibleComment={visibleComment}
       toggleVisibleComment={toggleVisibleComment}
     />

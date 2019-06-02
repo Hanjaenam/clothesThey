@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import BoardView from './Board-view';
 import { GoToTheTop } from './Board-styles';
 
-const BoardContainer = () => {
+const BoardContainer = ({ match }) => {
   const setPosition = () => {
     if (document.body.clientWidth <= 1024) return;
     const goToTheTop = document.querySelector(
@@ -19,9 +19,9 @@ const BoardContainer = () => {
   useEffect(() => {
     setPosition();
     window.addEventListener('resize', setPosition);
-    window.removeEventListener('resize', setPosition);
+    return () => window.removeEventListener('resize', setPosition);
   });
-  return <BoardView onClick={onClick} />;
+  return <BoardView onClick={onClick} category={match.params.category} />;
 };
 
 export default BoardContainer;

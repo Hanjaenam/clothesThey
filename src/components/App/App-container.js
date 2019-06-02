@@ -1,10 +1,14 @@
 import React, { useEffect, useReducer } from 'react';
 import AppView from './App-view';
-import reducer, { initialState } from './App-reducer';
+import AppContext, {
+  reducer,
+  initialState,
+  hideModalSign,
+  hideModalUploadBoard,
+} from './App-store';
 
 const RouterContainer = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  // const [showUploadBoard, setUploadBoard] = useState(undefined);
   useEffect(() => {
     if (
       state.getIn(['modal', 'uploadBoard', 'visible']) ||
@@ -16,12 +20,18 @@ const RouterContainer = () => {
     }
   });
   return (
-    <AppView
-      dispatch={dispatch}
-      modalUploadBoardVisible={state.getIn(['modal', 'uploadBoard', 'visible'])}
-      modalSignVisible={state.getIn(['modal', 'sign', 'visible'])}
-      signTitle={state.getIn(['modal', 'sign', 'title'])}
-    />
+    <AppContext.Provider value={[state, dispatch]}>
+      <AppView
+        modalSign={{
+          visible: state.getIn(['modal', 'sign', 'visible']),
+          hideModal: () => dispatch(hideModalSign()),
+        }}
+        modalUpload={{
+          visible: state.getIn(['modal', 'uploadBoard', 'visible']),
+          hideModal: () => dispatch(hideModalUploadBoard()),
+        }}
+      />
+    </AppContext.Provider>
   );
 };
 

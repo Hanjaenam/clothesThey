@@ -4,7 +4,6 @@ import { hoverEffect, navLinkActiveStyle } from 'styles/mixins';
 
 export const Header = styled.header`
   min-height: ${props => props.theme.SIZE.HOME_HEADER};
-  /* background-color: white; */
   ${props =>
     props.pathname.includes('board')
       ? css`
@@ -23,7 +22,6 @@ export const LogoContainer = styled.div`
 `;
 
 export const Logo = styled(NavLink)`
-  /* all: unset; */
   color: ${props => props.theme.PRIMARY};
   text-decoration: none;
   transition: ${props => props.theme.TRANSITION.REGULAR};
@@ -54,15 +52,18 @@ export const Category = styled(NavLink).attrs(() => ({
 
 export const ButtonContainer = styled.div`
   justify-self: flex-end;
-  button {
-    &:first-child {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-    &:nth-child(2) {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      border-left: 0;
-    }
+  button:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
+  button:first-child ~ button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+  }
+`;
+
+export const NickName = styled.span`
+  display: inline-block;
+  margin-right: ${props => props.theme.GAP.SMALL};
 `;

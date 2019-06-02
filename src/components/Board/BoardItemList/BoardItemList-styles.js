@@ -60,5 +60,23 @@ export const Number = styled.p`
 `;
 
 export const ButtonContainer = styled.div`
+  border: 1px solid ${props => props.theme.PRIMARY};
+  border-radius: ${props => props.theme.BORDER_RADIUS.SMALL};
   justify-self: flex-end;
+  button {
+    border: none;
+    &:first-child {
+      border-right: 1px solid ${props => props.theme.PRIMARY};
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:nth-child(2) {
+      border-right: 1px solid ${props => props.theme.PRIMARY};
+      border-radius: 0;
+    }
+    &:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
 `;

@@ -1,17 +1,19 @@
 import React, { useContext } from 'react';
-import { showModalSign, setModalSignTitle } from 'components/App/App-reducer';
-import Store from 'store';
+import AppContext, {
+  showModalSign,
+  setModalSignTitle,
+} from 'components/App/App-store';
 import HeaderView from './Header-view';
 
 const HeaderContainer = () => {
-  const dispatch = useContext(Store);
+  const appContext = useContext(AppContext);
   return (
     <HeaderView
       onClick={title => {
-        dispatch(showModalSign());
-        dispatch(setModalSignTitle(title));
+        appContext[1](showModalSign());
+        appContext[1](setModalSignTitle(title));
       }}
-      // modalVisible={modalVisible}
+      user={appContext[0].get('user')}
     />
   );
 };

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Button } from 'components/Common/Button/Button-styles';
 import { navLinkActiveStyle } from 'styles/mixins';
 
@@ -32,9 +32,14 @@ export const ContentContainer = styled.article`
   /* flex: 1; */
   padding: 0 ${props => props.theme.GAP.LARGE};
   padding-top: ${props => props.theme.GAP.REGULAR};
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  grid-row-gap: ${props => props.theme.GAP.REGULAR};
+  ${props =>
+    props.loading
+      ? null
+      : css`
+          display: grid;
+          grid-template-rows: auto 1fr auto;
+          grid-row-gap: ${props => props.theme.GAP.REGULAR};
+        `}
 `;
 
 export const Title = styled.h1`

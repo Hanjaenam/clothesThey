@@ -1,13 +1,12 @@
-- modal 외부 선택시 제거
-- commments -> post 밑으로 확장
-- comment는 댓댓글 2번까지만 
-- modal animation
-
-# finish
-- comments -> post 밑으로 확장
-- comment 댓댓글 2번까지만
-- modal 외부 선택시 제거
-- modal animation
+- [x]comments -> post 밑으로 확장
+- [x]comment 댓댓글 2번까지만
+- [x]modal 외부 선택시 제거
+- [x]modal animation
+- [x]container props
+- [x]title
+- [x] 404 page
+- [x] after login, 내가 쓴 글
+- [x] loading page -> button disabled 해주어야한다.
 
 # version
 v1

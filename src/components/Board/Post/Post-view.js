@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faComments } from '@fortawesome/free-regular-svg-icons';
 import CommentList from 'components/Board/CommentList';
+import LoadingComponent from 'components/Loading';
 import * as jss from './Post-styles';
 
 const PostView = ({
@@ -18,6 +19,7 @@ const PostView = ({
   <jss.Container>
     <jss.ThumbnailContainer>
       <jss.Thumbnail src={imageSrc} />
+      {/* <LoadingComponent /> */}
     </jss.ThumbnailContainer>
     <jss.ContentContainer>
       <jss.Title>{title}</jss.Title>
@@ -39,6 +41,7 @@ const PostView = ({
           </span>
         </jss.ItemButton>
       </jss.ItemList>
+      {/* <LoadingComponent /> */}
     </jss.ContentContainer>
     {visibleComment ? <CommentList id={id} /> : null}
   </jss.Container>

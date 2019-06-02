@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'components/Common/Button';
-import * as jss from './ModalSign-styles';
+import * as jss from './Sign-styles';
+import LoadingComponent from 'components/Loading';
 
 const ModalSign = ({
   title,
@@ -39,7 +40,10 @@ const ModalSign = ({
         </jss.InputContainer>
       ) : null}
       <jss.ButtonContainer className="sign">
-        <Button>확인</Button>
+        <Button>
+          {/* <LoadingComponent modal /> */}
+          확인
+        </Button>
         <Button onClick={onCancel}>취소</Button>
       </jss.ButtonContainer>
     </jss.Container>

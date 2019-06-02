@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faClock } from '@fortawesome/free-regular-svg-icons';
 import Button from 'components/Common/Button';
 import * as jss from './BoardItemList-styles';
 
@@ -30,6 +31,12 @@ const BoardItemListView = ({ showModalUploadBoard }) => (
       </jss.Number>
     </jss.PaginationContainer>
     <jss.ButtonContainer>
+      <Button>
+        <FontAwesomeIcon icon={faThumbsUp} />
+      </Button>
+      <Button>
+        <FontAwesomeIcon icon={faClock} />
+      </Button>
       <Button onClick={showModalUploadBoard}>글올리기</Button>
     </jss.ButtonContainer>
   </jss.ItemContainer>

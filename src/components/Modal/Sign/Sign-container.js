@@ -1,12 +1,10 @@
 import React, { useContext } from 'react';
-import Store from 'store';
-import { hideModalSign } from 'components/App/App-reducer';
-import PropTypes from 'prop-types';
+import AppContext, { hideModalSign } from 'components/App/App-store';
 import { useChange } from 'lib/hooks';
-import ModalSignView from './MoadlSign-view';
+import ModalSignView from './Sign-view';
 
-const ModalSignContainer = ({ title }) => {
-  const dispatch = useContext(Store);
+const ModalSignContainer = () => {
+  const appContext = useContext(AppContext);
   const nickname = useChange();
   const password = useChange();
   const confirmPassword = useChange();
@@ -17,11 +15,11 @@ const ModalSignContainer = ({ title }) => {
     event.target.classList.add('focused');
   };
   const onCancel = () => {
-    dispatch(hideModalSign());
+    appContext[1](hideModalSign());
   };
   return (
     <ModalSignView
-      title={title}
+      title={appContext[0].getIn(['modal', 'sign', 'title'])}
       nickname={nickname}
       password={password}
       confirmPassword={confirmPassword}
@@ -30,9 +28,6 @@ const ModalSignContainer = ({ title }) => {
       onCancel={onCancel}
     />
   );
-};
-ModalSignContainer.propTypes = {
-  title: PropTypes.string.isRequired,
 };
 
 export default ModalSignContainer;
