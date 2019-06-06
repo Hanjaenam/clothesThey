@@ -2,38 +2,49 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from 'components/Common/Button';
+import { navLinkActiveStyle } from 'styles/mixins';
+import EditUser from './EditUser';
 import * as jss from './Header-styles';
 
-const HeaderView = ({ location, onClick, user }) => (
+const HeaderView = ({ location }) => (
   <jss.Header pathname={location.pathname}>
     <jss.LogoContainer>
-      <jss.Logo to="/">ClothesThey</jss.Logo>
+      <Button exact to="/" noborder="true" activeStyle={navLinkActiveStyle}>
+        ClothesThey
+      </Button>
     </jss.LogoContainer>
     <jss.CategoryContainer>
-      <jss.Category to="/board/teenager">10대</jss.Category>
-      <jss.Category to="/board/college">대학생</jss.Category>
-      <jss.Category to="/board/ordinary">일반인</jss.Category>
-      <jss.Category to="/board/free">자유</jss.Category>
+      <Button
+        to="/board/teenager"
+        noborder="true"
+        activeStyle={navLinkActiveStyle}
+      >
+        10대
+      </Button>
+      <Button
+        to="/board/college"
+        noborder="true"
+        activeStyle={navLinkActiveStyle}
+      >
+        대학생
+      </Button>
+      <Button
+        to="/board/ordinary"
+        noborder="true"
+        activeStyle={navLinkActiveStyle}
+      >
+        일반인
+      </Button>
+      <Button to="/board/free" noborder="true" activeStyle={navLinkActiveStyle}>
+        자유
+      </Button>
     </jss.CategoryContainer>
-    <jss.ButtonContainer>
-      {user === undefined ? (
-        <>
-          <Button onClick={() => onClick('로그인')}>로그인</Button>
-          <Button onClick={() => onClick('회원가입')}>회원가입</Button>
-        </>
-      ) : (
-        <>
-          <jss.NickName>{user.get('nickname')}</jss.NickName>
-          <Button>내가 쓴 글</Button>
-        </>
-      )}
-    </jss.ButtonContainer>
+    <EditUser />
   </jss.Header>
 );
 
 HeaderView.propTypes = {
   location: PropTypes.shape({}).isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
 export default withRouter(HeaderView);

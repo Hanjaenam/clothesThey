@@ -1,17 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'components/Common/Button';
+import Loader from 'components/Loading';
 import * as jss from './Sign-styles';
-import LoadingComponent from 'components/Loading';
 
 const ModalSign = ({
   title,
   onCancel,
   onMouseLeave,
   onMouseEnter,
-  nickname,
-  password,
-  confirmPassword,
+  onConfirm,
+  helpMsg,
+  onEmailChange,
+  onPasswordChange,
+  onCPasswordChange,
+  onKeyUpConfirm,
+  loading,
+  isDisabled,
 }) => {
   return (
     <jss.Container
@@ -21,31 +26,47 @@ const ModalSign = ({
     >
       <span>{title}</span>
       <jss.InputContainer>
-        <jss.Input
-          className="nickname"
-          autoFocus
-          required
-          onChange={nickname.onChange}
-        />
-        <span>닉네임</span>
+        <jss.Input type="email" onChange={onEmailChange} autoFocus required />
+        <span>이메일</span>
       </jss.InputContainer>
       <jss.InputContainer>
-        <jss.Input required onChange={password.onChange} />
+        <jss.Input
+          type="password"
+          onChange={onPasswordChange}
+          onKeyUp={onKeyUpConfirm}
+          required
+        />
         <span>비밀번호</span>
       </jss.InputContainer>
       {title === '회원가입' ? (
         <jss.InputContainer>
-          <jss.Input onChange={confirmPassword.onChange} required />
+          <jss.Input
+            type="password"
+            onChange={onCPasswordChange}
+            onKeyUp={onKeyUpConfirm}
+            required
+          />
           <span>비밀번호확인</span>
         </jss.InputContainer>
       ) : null}
       <jss.ButtonContainer className="sign">
-        <Button>
-          {/* <LoadingComponent modal /> */}
-          확인
+        <Button
+          onClick={onConfirm}
+          noborder
+          loading={loading}
+          disabled={isDisabled()}
+        >
+          {loading ? <Loader modal /> : '확인'}
         </Button>
-        <Button onClick={onCancel}>취소</Button>
+        <Button onClick={onCancel} noborder>
+          취소
+        </Button>
       </jss.ButtonContainer>
+      {helpMsg ? (
+        <jss.HelpContainer>
+          <span>{helpMsg}</span>
+        </jss.HelpContainer>
+      ) : null}
     </jss.Container>
   );
 };
@@ -53,25 +74,18 @@ const ModalSign = ({
 ModalSign.propTypes = {
   title: PropTypes.string,
   onCancel: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func,
-  onMouseEnter: PropTypes.func,
-  nickname: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-  }).isRequired,
-  password: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-  }).isRequired,
-  confirmPassword: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-  }).isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
+  onMouseEnter: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  helpMsg: PropTypes.string,
+  onEmailChange: PropTypes.func.isRequired,
+  onPasswordChange: PropTypes.func.isRequired,
+  onCPasswordChange: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 ModalSign.defaultProps = {
   title: '',
-  onMouseLeave: () => console.log('error'),
-  onMouseEnter: () => console.log('error'),
+  helpMsg: null,
 };
 export default ModalSign;

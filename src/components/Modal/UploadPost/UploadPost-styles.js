@@ -2,27 +2,39 @@ import styled from 'styled-components';
 import * as jss from 'components/Board/Post/Post-styles';
 import { hoverEffect, placeholderEffect, focusedEffect } from 'styles/mixins';
 
-export const ModalContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: ${props => props.theme.NOT_FOCUSED};
-  z-index: 2;
-`;
-
 export const UploadPostContainer = styled(jss.Container)`
   transform: translateY(40%);
   padding-top: ${props => props.theme.GAP.REGULAR};
   padding-bottom: ${props => props.theme.GAP.REGULAR};
+  .loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: ${props => props.theme.ALPHA};
+  }
 `;
 
 export const UploadPhotoContainer = styled(jss.ThumbnailContainer)`
   border: 1px solid rgba(0, 0, 0, 0.2);
+  position: relative;
+`;
+
+export const PreviewImg = styled.img`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 `;
 
 export const InputFileLabel = styled.label`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   width: inherit;
   height: inherit;
   display: inline-block;
@@ -58,18 +70,18 @@ export const CloseButton = styled.input`
   right: 0;
 `;
 
-export const ButtonContainer = styled(jss.ItemList)`
-  padding-top: 0;
-  border: 1px solid ${props => props.theme.PRIMARY};
-  border-radius: ${props => props.theme.BORDER_RADIUS.SMALL};
+export const ButtonContainer = styled.div`
   display: flex;
   button {
     flex: 1;
-    border: none;
     text-align: center;
-    border-radius: 0;
     &:first-child {
-      border-right: 1px solid ${props => props.theme.PRIMARY};
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:nth-child(2) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
     }
   }
 `;

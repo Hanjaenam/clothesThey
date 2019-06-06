@@ -1,34 +1,23 @@
-import styled, { css } from 'styled-components';
-import { NavLink } from 'react-router-dom';
-import { hoverEffect } from 'styles/mixins';
-import { Button } from 'components/Common/Button/Button-styles';
+import styled from 'styled-components';
+import { buttonCss } from 'components/Common/Button/Button-styles';
 
 export const Container = styled.article`
   margin: ${props => props.theme.GAP.REGULAR} 0;
   &:first-child {
     margin-top: 0;
   }
+  > a {
+    display: block;
+  }
 `;
 
-const titleCss = css`
+export const Title = styled.p`
   all: unset;
   display: block;
   padding: ${props => props.theme.GAP.SMALL};
   margin: ${props => props.theme.GAP.SMALL} 0;
   font-size: ${props => props.theme.FONT_SIZE.TITLE};
-`;
-
-export const LinkedTitle = styled(NavLink)`
-${titleCss}
-  transition: ${props => props.theme.TRANSITION.REGULAR};
-  border-radius: ${props => props.theme.BORDER_RADIUS.SMALL};
-  cursor: pointer;
-  ${hoverEffect.button()};
-`;
-
-export const Title = styled.p`
-  ${titleCss}
-  user-select:none;
+  user-select: none;
 `;
 
 export const ThumbnailContainer = styled.div`
@@ -37,8 +26,8 @@ export const ThumbnailContainer = styled.div`
   position: relative;
 `;
 
-export const ArrowButton = styled(Button)`
-  border: 0;
+export const ArrowButton = styled.button`
+  ${buttonCss('noborder')}
   box-sizing: border-box;
   z-index: 1;
   position: absolute;
@@ -48,10 +37,6 @@ export const ArrowButton = styled(Button)`
     position: relative;
     height: auto;
     padding: 0 ${props => props.theme.GAP.REGULAR};
-  }
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    color: ${props => props.theme.PRIMARY};
   }
 `;
 

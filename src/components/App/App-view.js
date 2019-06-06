@@ -4,13 +4,11 @@ import HeaderComponent from 'components/Common/Header';
 import HomePage from 'pages/Home';
 import BoardPage from 'pages/Board';
 import NotFoundPage from 'components/NotFound';
-import UploadPost from 'components/Modal/UploadPost';
-import ModalSign from 'components/Modal/Sign';
-import ModalWrapper from 'components/Common/ModalWrapper';
-import PropTypes from 'prop-types';
+import UploadPostModal from 'components/Modal/UploadPost';
+import SignModal from 'components/Modal/Sign';
 import * as jss from './App-styles';
 
-const AppView = ({ modalSign, modalUpload }) => {
+const AppView = () => {
   return (
     <Router>
       <jss.Container>
@@ -21,22 +19,10 @@ const AppView = ({ modalSign, modalUpload }) => {
           <Route component={NotFoundPage} />
         </Switch>
       </jss.Container>
-      <ModalWrapper
-        visible={modalUpload.visible}
-        hideModal={modalUpload.hideModal}
-      >
-        <UploadPost />
-      </ModalWrapper>
-      <ModalWrapper visible={modalSign.visible} hideModal={modalSign.hideModal}>
-        <ModalSign />
-      </ModalWrapper>
+      <UploadPostModal />
+      <SignModal />
     </Router>
   );
-};
-
-AppView.propTypes = {
-  modalSign: PropTypes.shape({}).isRequired,
-  modalUpload: PropTypes.shape({}).isRequired,
 };
 
 export default AppView;

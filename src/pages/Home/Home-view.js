@@ -3,7 +3,7 @@ import ThumbnailList from 'components/Home/ThumbnailList';
 import Helmet from 'react-helmet';
 import * as jss from './Home-styles';
 
-const HomePresenterView = () => (
+const HomeView = () => (
   <>
     <Helmet>
       <title>Home</title>
@@ -22,4 +22,4 @@ const HomePresenterView = () => (
   </>
 );
 
-export default HomePresenterView;
+export default HomeView;

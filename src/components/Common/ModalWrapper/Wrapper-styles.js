@@ -18,7 +18,7 @@ export const ModalWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: ${props => props.theme.NOT_FOCUSED};
+  background-color: ${props => props.theme.ALPHA};
   z-index: 2;
   &.enter {
     ${modal.fadeIn}

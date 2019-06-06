@@ -1,10 +1,12 @@
 import React, { useContext, useEffect } from 'react';
-import AppContext, { showModalUploadBoard } from 'components/App/App-store';
-import BoardItemListView from './BoardItemList-view';
-import { ItemContainer } from './BoardItemList-styles';
+import BoardPageStore from 'pages/Board/Board-store';
+import AppStore, { showModalUploadBoard } from 'components/App/App-store';
+import ItemListView from './ItemList-view';
+import { ItemContainer } from './ItemList-styles';
 
-const BoardItemListContainer = () => {
-  const appContext = useContext(AppContext);
+const ItemListContainer = () => {
+  const appContext = useContext(AppStore);
+  const boardPageContext = useContext(BoardPageStore);
   const setPosition = () => {
     const itemContainer = document.querySelector(
       `.${ItemContainer.styledComponentId}`,
@@ -17,7 +19,7 @@ const BoardItemListContainer = () => {
       itemContainer.style.top = '45px';
     }
   };
-  const initiPosition = () => {
+  const initPosition = () => {
     const itemContainer = document.querySelector(
       `.${ItemContainer.styledComponentId}`,
     );
@@ -25,17 +27,19 @@ const BoardItemListContainer = () => {
     itemContainer.style.display = 'grid';
   };
   useEffect(() => {
-    initiPosition();
+    initPosition();
     window.addEventListener('scroll', setPosition);
     return () => {
       window.removeEventListener('scroll', setPosition);
     };
-  });
+  }, []);
   return (
-    <BoardItemListView
+    <ItemListView
       showModalUploadBoard={() => appContext[1](showModalUploadBoard())}
+      category={boardPageContext.category}
+      nickname={appContext[0].getIn(['user', 'nickname'])}
     />
   );
 };
 
-export default BoardItemListContainer;
+export default ItemListContainer;

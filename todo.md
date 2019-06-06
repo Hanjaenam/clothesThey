@@ -7,6 +7,12 @@
 - [x] 404 page
 - [x] after login, 내가 쓴 글
 - [x] loading page -> button disabled 해주어야한다.
+- [x] after sign container login => button loading compnent
+- [x] after header container logout => button loading component
+- [x] after sign container register => button loading compnent
+- [] 글올리기 hover -> "닉네임을 설정해주세요"
+- [] 로그인 -> 아이디, 비밀번호 뭐가 틀렸는지
+- [] 회원기입 -> 아이디 존재하는지
 
 # version
 v1

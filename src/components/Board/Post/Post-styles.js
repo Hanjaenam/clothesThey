@@ -1,6 +1,4 @@
 import styled, { css } from 'styled-components';
-import { Button } from 'components/Common/Button/Button-styles';
-import { navLinkActiveStyle } from 'styles/mixins';
 
 export const Container = styled.article`
   transition: ${props => props.theme.TRANSITION.REGULAR};
@@ -58,15 +56,6 @@ export const ItemList = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  border-top: 1px solid ${props => props.theme.PRIMARY};
+  border-top: 1px solid ${props => props.theme.TEXT};
   padding-top: ${props => props.theme.GAP.SMALL};
-`;
-
-export const ItemButton = styled(Button)`
-  border: 0;
-  margin-right: ${props => props.theme.GAP.SMALL};
-  svg {
-    margin-right: 1px;
-  }
-  ${props => (props.visibleComment ? navLinkActiveStyle() : null)}
 `;

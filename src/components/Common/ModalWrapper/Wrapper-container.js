@@ -28,6 +28,8 @@ class ModalWrapperContainer extends Component {
   };
 
   onKeyUp = e => {
+    const { loading } = this.props;
+    if (loading) return;
     const { hideModal } = this.props;
     if (e.keyCode === 27) {
       hideModal();
@@ -35,7 +37,8 @@ class ModalWrapperContainer extends Component {
   };
 
   onClick = e => {
-    const { hideModal } = this.props;
+    const { hideModal, loading } = this.props;
+    if (loading) return;
     const { target, currentTarget } = e;
     if (target.classList === currentTarget.classList) {
       hideModal();

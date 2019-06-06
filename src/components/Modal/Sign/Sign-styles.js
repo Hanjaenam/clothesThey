@@ -7,8 +7,12 @@ export const Container = styled.div`
   right: 0;
   padding: ${props => props.theme.GAP.LARGE};
   border-bottom-left-radius: ${props => props.theme.BORDER_RADIUS.REGULAR};
+  width: 15vw;
+  min-width: 250px;
   input {
     display: block;
+    width: 100%;
+    box-sizing: border-box;
   }
   background-color: white;
   text-align: center;
@@ -51,5 +55,17 @@ export const ButtonContainer = styled.div`
       border-right: 1px solid ${props => props.theme.PRIMARY};
     }
     flex: 1;
+  }
+`;
+
+export const HelpContainer = styled.div`
+  margin: 0 auto;
+  border-radius: ${props => props.theme.BORDER_RADIUS.SMALL};
+  background-color: ${props => props.theme.DANGER};
+  color: white;
+  padding: ${props => props.theme.GAP.REGULAR};
+  span {
+    word-break: break-all;
+    font-size: ${props => props.theme.FONT_SIZE.HELP};
   }
 `;

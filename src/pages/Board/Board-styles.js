@@ -5,11 +5,14 @@ export const Container = styled.main`
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.theme.BACKGROUND_COLOR};
+  background-color: ${props => props.theme.ALPHA};
 `;
 
 export const BoardContainer = styled.section`
   margin-top: ${props => `calc( ${props.theme.SIZE.BOARD.ITEM_LIST})`};
+  .loading {
+    margin: ${props => props.theme.GAP.MASSIVE} 0;
+  }
 `;
 
 const top = keyframes`

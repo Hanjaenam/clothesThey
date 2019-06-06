@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { hoverEffect, navLinkActiveStyle } from 'styles/mixins';
+import { navLinkActiveStyle } from 'styles/mixins';
+import { buttonCss } from 'components/Common/Button/Button-styles';
 
 export const Header = styled.header`
   min-height: ${props => props.theme.SIZE.HOME_HEADER};
@@ -19,17 +20,16 @@ export const Header = styled.header`
 
 export const LogoContainer = styled.div`
   justify-self: flex-start;
+  a {
+    font-size: ${props => props.theme.FONT_SIZE.TITLE};
+  }
 `;
 
 export const Logo = styled(NavLink)`
-  color: ${props => props.theme.PRIMARY};
+  color: ${props => props.theme.TEXT};
   text-decoration: none;
-  transition: ${props => props.theme.TRANSITION.REGULAR};
-  padding: ${props => props.theme.GAP.REGULAR};
+  ${buttonCss(false)}
   font-size: ${props => props.theme.FONT_SIZE.TITLE};
-  border-radius: ${props => props.theme.BORDER_RADIUS.SMALL};
-  cursor: pointer;
-  ${hoverEffect.button()}
 `;
 
 export const CategoryContainer = styled.nav`
@@ -40,26 +40,22 @@ export const CategoryContainer = styled.nav`
 export const Category = styled(NavLink).attrs(() => ({
   activeStyle: navLinkActiveStyle(),
 }))`
-  color: ${props => props.theme.PRIMARY};
   text-decoration: none;
   display: block;
-  padding: ${props => props.theme.GAP.REGULAR};
-  cursor: pointer;
-  transition: ${props => props.theme.TRANSITION.REGULAR};
-  border-radius: ${props => props.theme.BORDER_RADIUS.SMALL};
-  ${hoverEffect.button()};
+  color: ${props => props.theme.TEXT};
+  ${buttonCss(false)};
 `;
 
 export const ButtonContainer = styled.div`
   justify-self: flex-end;
-  button:first-child {
+  button:first-child,
+  a:first-child {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-  button:first-child ~ button {
+  button:nth-child(2) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border-left: 0;
   }
 `;
 

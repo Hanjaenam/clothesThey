@@ -1,21 +1,44 @@
 import styled, { css } from 'styled-components';
 import { hoverEffect } from 'styles/mixins';
+import { NavLink } from 'react-router-dom';
 
-// eslint-disable-next-line import/prefer-default-export
-export const Button = styled.button`
+export const buttonCss = noborder => css`
   font-size: 1rem;
   margin: 0;
   background: white;
   padding: ${props => props.theme.GAP.SMALL};
   transition: ${props => props.theme.TRANSITION.REGULAR};
-  border: 1px solid black;
+  border: ${props =>
+    noborder === true || noborder === 'noborder' || noborder === 'true'
+      ? `none`
+      : `1px solid ${props.theme.ALPHA}`};
   border-radius: ${props => props.theme.BORDER_RADIUS.SMALL};
   outline: none;
+  /* ${props =>
+    props.notFocused
+      ? css`
+          color: ${props => props.theme.NOT_FOCUSED};
+        `
+      : null} */
   ${props =>
-    props.disabled
-      ? null
+    props.disabled || props.loading
+      ? css`
+          background: ${props.theme.ALPHA};
+          ${props.loading === 'true' ? 'cursor:wait' : null}
+        `
       : css`
           cursor: pointer;
-          ${hoverEffect.button()}
+          ${hoverEffect.button({ noborder })}
         `}
+`;
+
+// eslint-disable-next-line import/prefer-default-export
+export const Button = styled.button`
+  ${props => buttonCss(props.noborder)}
+`;
+
+export const LinkedButton = styled(NavLink)`
+  ${props => buttonCss(props.noborder)}
+  text-decoration:none;
+  color: ${props => props.theme.TEXT};
 `;

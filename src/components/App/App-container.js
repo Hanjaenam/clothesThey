@@ -1,11 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
+import { getUser } from 'lib/api';
 import AppView from './App-view';
-import AppContext, {
-  reducer,
-  initialState,
-  hideModalSign,
-  hideModalUploadBoard,
-} from './App-store';
+import Store, { reducer, initialState, logInUser } from './App-store';
 
 const RouterContainer = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -18,20 +14,17 @@ const RouterContainer = () => {
     } else {
       document.body.style.overflowY = 'auto';
     }
-  });
+    getUser().then(res => {
+      const { data } = res;
+      if (data) {
+        dispatch(logInUser({ email: data.email, nickname: data.nickname }));
+      }
+    });
+  }, []);
   return (
-    <AppContext.Provider value={[state, dispatch]}>
-      <AppView
-        modalSign={{
-          visible: state.getIn(['modal', 'sign', 'visible']),
-          hideModal: () => dispatch(hideModalSign()),
-        }}
-        modalUpload={{
-          visible: state.getIn(['modal', 'uploadBoard', 'visible']),
-          hideModal: () => dispatch(hideModalUploadBoard()),
-        }}
-      />
-    </AppContext.Provider>
+    <Store.Provider value={[state, dispatch]}>
+      <AppView />
+    </Store.Provider>
   );
 };
 

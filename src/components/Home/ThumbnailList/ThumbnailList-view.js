@@ -7,6 +7,7 @@ import {
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
+import Button from 'components/Common/Button';
 import * as jss from './ThumbnailList-styles';
 
 const LINK = {
@@ -21,9 +22,9 @@ const ThumbnailList = ({ category }) => (
     {category === 'Weekly Best' ? (
       <jss.Title>Weekly Best</jss.Title>
     ) : (
-      <jss.LinkedTitle to={`/board/${LINK[category]}`}>
+      <Button to={`/board/${LINK[category]}`} noborder="true">
         {category}
-      </jss.LinkedTitle>
+      </Button>
     )}
     <jss.ThumbnailContainer category={category}>
       {category === 'Weekly Best' ? (

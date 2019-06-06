@@ -9,6 +9,7 @@ export const Container = styled.main`
 `;
 
 export const ThumbnailContainer = styled.section`
+  margin: ${props => props.theme.GAP.REGULAR} 0;
   display: inline-grid;
 `;
 

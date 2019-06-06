@@ -13,24 +13,31 @@ export const paddingX = size => css`
   padding: 0 ${props => props.theme.GAP[size]};
 `;
 
-export const navLinkActiveStyle = (color = theme.PRIMARY) => ({
+export const navLinkActiveStyle = {
   color: 'white',
-  backgroundColor: color,
-});
+  backgroundColor: theme.PRIMARY,
+};
 
 export const hoverEffect = {
-  button: (color = theme.PRIMARY) => css`
-    &:hover {
-      ${navLinkActiveStyle(color)}
-    }
-    > span {
-      transition: scale;
-    }
-    &:active > span {
-      display: block;
-      transform: scale(0.9);
-    }
-  `,
+  button: (opts = {}) => {
+    opts.color = opts.color ? opts.color : theme.PRIMARY;
+    return css`
+      &:hover {
+        span {
+          color: white;
+        }
+        background-color: ${opts.color};
+        ${opts.noborder ? null : `border-color:${opts.color}`};
+      }
+      > span {
+        transition: scale;
+      }
+      &:active > span {
+        display: inline-block;
+        transform: scale(0.9);
+      }
+    `;
+  },
   shadow: (
     x = 0,
     y = 0,
@@ -60,10 +67,10 @@ export const hoverEffect = {
 //   -webkit-box-orient: vertical;
 // `;
 
-export const focusedEffect = () => css`
-  border: 1px solid ${props => props.theme.NOT_FOCUSED};
+export const focusedEffect = (opts = {}) => css`
+  border: 1px solid ${props => props.theme.ALPHA};
   &:focus {
-    border: 1px solid ${props => props.theme.PRIMARY};
+    border-color: ${props => props.theme.PRIMARY};
   }
 `;
 
@@ -97,29 +104,26 @@ export const placeholderEffect = (type = 'input') => css`
 
 export const pairCss = {
   inputButton: (type = 'input') => css`
+  border-radius: ${props => props.theme.BORDER_RADIUS.REGULAR};
     ${type} {
-      ${focusedEffect()}
+      ${focusedEffect({ borderLocation: 'left' })}
       border-radius: ${props => props.theme.BORDER_RADIUS.REGULAR};
       border-bottom-right-radius: 0;
       border-top-right-radius: 0;
       &:focus {
         & ~ button {
-          border: 1px solid ${props => props.theme.PRIMARY};
-          border-left: none;
+          border-color: ${props => props.theme.PRIMARY};
           color: ${props => props.theme.PRIMARY};
         }
       }
     }
     button,
     input[type="button"] {
-      border: 1px solid ${props => props.theme.NOT_FOCUSED};
+      border: 1px solid ${props => props.theme.ALPHA};
       border-radius: ${props => props.theme.BORDER_RADIUS.REGULAR};
       border-bottom-left-radius: 0;
       border-top-left-radius: 0;
-      border-left: none;
-      &:hover {
-        ${hoverEffect.button()}
-      }
+      border-left:none;
     }
   `,
 };

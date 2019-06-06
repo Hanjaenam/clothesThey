@@ -1,10 +1,10 @@
 import React from 'react';
-import ItemList from 'components/Board/BoardItemList';
-import Post from 'components/Board/Post';
-import testImg from 'assets/testImg.png';
+import ItemList from 'components/Board/ItemList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import Helmet from 'react-helmet';
+import PropTypes from 'prop-types';
+import Loader from 'components/Loading';
 import * as jss from './Board-styles';
 
 const TITLE = {
@@ -14,7 +14,7 @@ const TITLE = {
   free: '자유',
 };
 
-const BoardPresenterView = ({ onClick, category }) => {
+const BoardView = ({ children, onClick, category, loading }) => {
   return (
     <>
       <Helmet>
@@ -23,38 +23,8 @@ const BoardPresenterView = ({ onClick, category }) => {
       <jss.Container>
         <ItemList />
         <jss.BoardContainer>
-          <Post
-            id="1"
-            title="testTitle"
-            content="testcontent"
-            likeNumber={12}
-            commentNumber={23}
-            imageSrc={testImg}
-          />
-          <Post
-            id="1"
-            title="testTitle"
-            content="testcontent"
-            likeNumber={12}
-            commentNumber={23}
-            imageSrc={testImg}
-          />
-          <Post
-            id="1"
-            title="testTitle"
-            content="testcontent"
-            likeNumber={12}
-            commentNumber={23}
-            imageSrc={testImg}
-          />
-          <Post
-            id="1"
-            title="testTitle"
-            content="testcontent"
-            likeNumber={12}
-            commentNumber={23}
-            imageSrc={testImg}
-          />
+          {children}
+          {loading ? <Loader /> : null}
         </jss.BoardContainer>
         <jss.GoToTheTop onClick={onClick}>
           <FontAwesomeIcon icon={faArrowUp} />
@@ -64,4 +34,9 @@ const BoardPresenterView = ({ onClick, category }) => {
   );
 };
 
-export default BoardPresenterView;
+BoardView.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired,
+};
+
+export default BoardView;
