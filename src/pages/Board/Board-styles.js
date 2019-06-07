@@ -8,13 +8,6 @@ export const Container = styled.main`
   background-color: ${props => props.theme.ALPHA};
 `;
 
-export const BoardContainer = styled.section`
-  margin-top: ${props => `calc( ${props.theme.SIZE.BOARD.ITEM_LIST})`};
-  .loading {
-    margin: ${props => props.theme.GAP.MASSIVE} 0;
-  }
-`;
-
 const top = keyframes`
 50%{
   transform:translateY(-20%);

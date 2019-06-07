@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.article`
+  box-sizing: border-box;
   transition: ${props => props.theme.TRANSITION.REGULAR};
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: ${props => props.theme.BORDER_RADIUS.SMALL};
@@ -58,4 +59,28 @@ export const ItemList = styled.div`
   align-items: center;
   border-top: 1px solid ${props => props.theme.TEXT};
   padding-top: ${props => props.theme.GAP.SMALL};
+`;
+
+export const EditContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  > button {
+    border-color: transparent;
+  }
+`;
+
+export const CreatorContainer = styled.div`
+  margin-right: auto;
+`;
+
+export const Creator = styled.span`
+  user-select: none;
+`;
+
+export const CreatedAt = styled.span`
+  font-size: 0.8rem;
+  font-style: italic;
+  color: ${props => props.theme.ALPHA};
+  user-select: none;
 `;

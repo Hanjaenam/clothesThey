@@ -7,6 +7,7 @@ import AppContext, {
 } from 'components/App/App-store';
 import { userLogOut, userPatch } from 'lib/api';
 import theme from 'styles/theme';
+import { useApiStatus } from 'lib/hooks';
 import EditUserView from './EditUser-view';
 
 const EditUserContainer = () => {
@@ -14,17 +15,16 @@ const EditUserContainer = () => {
   // const [failure, setFailure] = useState(false);
   const [clickedSetNickName, setClicked] = useState(false);
   const [helpMsg, setHelpMsg] = useState(null);
-  const [apiStatus, setApiStatus] = useState({
-    loading: false,
-    failure: false,
-  });
+  const { apiStatus, loading, failure, end } = useApiStatus();
   const nickNameRef = useRef();
   const onLogOutClick = () => {
-    setApiStatus(s => ({ failure: false, loading: true }));
-    userLogOut().then(res => {
-      setApiStatus(s => ({ failure: false, loading: false }));
-      appContext[1](logOutUser());
-    });
+    loading();
+    userLogOut()
+      .then(res => {
+        appContext[1](logOutUser());
+      })
+      .catch(err => failure())
+      .finally(() => end());
   };
   const onShowSModalClick = title => {
     appContext[1](showModalSign());
@@ -63,11 +63,13 @@ const EditUserContainer = () => {
   };
   const processApi = () => {
     const nickname = nickNameRef.current.value;
-    setApiStatus(s => ({ failure: false, loading: true }));
-    userPatch({ nickname }).then(res => {
-      setApiStatus(s => ({ failure: false, loading: false }));
-      appContext[1](setUser({ nickname }));
-    });
+    loading();
+    userPatch({ nickname })
+      .then(res => {
+        appContext[1](setUser({ nickname }));
+      })
+      .catch(err => failure())
+      .finally(() => end());
   };
   const onConfirmClick = e => {
     if (!isValid(e)) return;

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { navLinkActiveStyle } from 'styles/mixins';
+import { activeStyle } from 'styles/mixins';
 import { buttonCss } from 'components/Common/Button/Button-styles';
 
 export const Header = styled.header`
@@ -38,7 +38,7 @@ export const CategoryContainer = styled.nav`
 `;
 
 export const Category = styled(NavLink).attrs(() => ({
-  activeStyle: navLinkActiveStyle(),
+  activeStyle,
 }))`
   text-decoration: none;
   display: block;

@@ -13,14 +13,15 @@ const LinkedButton = ({ children, ...props }) => (
   </jss.LinkedButton>
 );
 
-const ButtonView = ({ children, to, onClick, disabled, ...props }) => {
+const ButtonView = ({ children, to, onClick, clicked, disabled, ...props }) => {
   const Element = to && !disabled ? LinkedButton : Button;
   return (
     <Element
       to={to}
-      onClick={disabled ? () => null : onClick}
+      onClick={disabled || clicked ? () => null : onClick}
       {...props}
-      disabled={disabled}
+      disabled={disabled || clicked}
+      clicked={clicked}
     >
       {children}
     </Element>

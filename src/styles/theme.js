@@ -38,7 +38,7 @@ export default {
     HOME_HEADER: '60px',
     BOARD: {
       HEADER: '45px',
-      TEXT_INPUT: '15rem',
+      ITEM_LIST_SIDE: '10rem',
       PAGINATION_NUMBER: '30px',
       ITEM_LIST: '2.5rem',
     },

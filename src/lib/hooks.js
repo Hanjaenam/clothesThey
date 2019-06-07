@@ -14,40 +14,31 @@ export const useChange = (iniailValue = '') => {
   return { value, onChange };
 };
 
-export const useApiStatus = (
-  initialValue = {
+export const useApiStatus = () => {
+  const [apiStatus, setApiStatus] = useState({
     loading: false,
+    success: false,
     failure: false,
-  },
-) => {
-  const [apiStatus, setApiStatus] = useState(initialValue);
-  const initApiStatus = () =>
-    setApiStatus(() => ({
-      loading: false,
-      failure: false,
-    }));
-  const loading = () => {
+  });
+  const loading = (isActive = true) => {
+    if (!isActive) return null;
     setApiStatus(s => ({ ...s, loading: true }));
   };
-  const failure = () => {
+  const failure = (isActive = true) => {
+    if (!isActive) return null;
     setApiStatus(s => ({ ...s, failure: true }));
   };
-  const success = () => {
-    setApiStatus(s => ({ ...s, loading: false }));
+  const success = (isActive = true) => {
+    if (!isActive) return null;
+    setApiStatus(s => ({ ...s, success: true }));
   };
-  const end = () => {
+  const end = (isActive = true) => {
+    if (!isActive) return null;
     setApiStatus(() => ({
       loading: false,
+      success: false,
       failure: false,
     }));
   };
-  return {
-    apiStatus,
-    setApiStatus,
-    initApiStatus,
-    loading,
-    failure,
-    success,
-    end,
-  };
+  return { apiStatus, loading, success, failure, end };
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'components/Common/Button';
 import Loader from 'components/Loading';
+import ErrorMessage from 'components/Common/ErrorMessage';
 import * as jss from './Sign-styles';
 
 const ModalSign = ({
@@ -10,7 +11,7 @@ const ModalSign = ({
   onMouseLeave,
   onMouseEnter,
   onConfirm,
-  helpMsg,
+  errorMsg,
   onEmailChange,
   onPasswordChange,
   onCPasswordChange,
@@ -62,11 +63,7 @@ const ModalSign = ({
           취소
         </Button>
       </jss.ButtonContainer>
-      {helpMsg ? (
-        <jss.HelpContainer>
-          <span>{helpMsg}</span>
-        </jss.HelpContainer>
-      ) : null}
+      <ErrorMessage>{errorMsg}</ErrorMessage>
     </jss.Container>
   );
 };
@@ -77,15 +74,16 @@ ModalSign.propTypes = {
   onMouseLeave: PropTypes.func.isRequired,
   onMouseEnter: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
-  helpMsg: PropTypes.string,
+  errorMsg: PropTypes.string,
   onEmailChange: PropTypes.func.isRequired,
   onPasswordChange: PropTypes.func.isRequired,
   onCPasswordChange: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
 };
 
 ModalSign.defaultProps = {
   title: '',
-  helpMsg: null,
+  errorMsg: null,
+  loading: undefined,
 };
 export default ModalSign;

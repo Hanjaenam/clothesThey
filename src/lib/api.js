@@ -48,6 +48,14 @@ export const createPost = formData => {
   return axios.post('/post/create', formData, config);
 };
 
+export const deletePost = ({ id, key }) => {
+  return axios.delete('/post/delete', { data: { id, key } });
+};
+
 export const addLikePost = ({ id }) => {
   return axios.get(`/post/addLike/${id}`);
+};
+
+export const getPostLength = ({ category }) => {
+  return axios.get(`/post/length/${category}`);
 };

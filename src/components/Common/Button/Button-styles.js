@@ -30,11 +30,19 @@ export const buttonCss = noborder => css`
           cursor: pointer;
           ${hoverEffect.button({ noborder })}
         `}
+  ${props =>
+    props.clicked
+      ? css`
+          background: ${props.theme.PRIMARY} !important;
+          color: white;
+        `
+      : null}
 `;
 
 // eslint-disable-next-line import/prefer-default-export
 export const Button = styled.button`
   ${props => buttonCss(props.noborder)}
+  ${props => props.activeStyle}
 `;
 
 export const LinkedButton = styled(NavLink)`

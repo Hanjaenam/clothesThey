@@ -1,6 +1,9 @@
 import React, { useContext, useState, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
-import AppContext, { hideModalUploadBoard } from 'components/App/App-store';
+import AppContext, {
+  hideModalUploadBoard,
+  unshiftNewPost,
+} from 'components/App/App-store';
 import ModalWrapper from 'components/Common/ModalWrapper';
 import { useChange, useApiStatus } from 'lib/hooks';
 import { createPost } from 'lib/api';
@@ -9,7 +12,7 @@ import UploadView from './UploadPost-view';
 const UploadContainer = ({ location }) => {
   const appContext = useContext(AppContext);
   const [previewUrl, setPreviewUrl] = useState('');
-  const { apiStatus, setApiStatus, initApiStatus } = useApiStatus();
+  const { apiStatus, loading, failure, end } = useApiStatus();
   const fileRef = useRef();
   const title = useChange();
   const content = useChange();
@@ -43,17 +46,25 @@ const UploadContainer = ({ location }) => {
     formData.append('title', title.value);
     formData.append('content', content.value);
     formData.append('category', getCategory());
-    setApiStatus(s => ({ ...s, loading: true }));
+    loading();
     createPost(formData)
       .then(res => {
-        setApiStatus(s => ({ ...s, loading: false }));
+        appContext[1](hideModalUploadBoard());
+        appContext[1](
+          unshiftNewPost({
+            ...res.data,
+            creator: {
+              ...res.data.creator,
+              nickname: appContext[0].getIn(['user', 'nickname']),
+            },
+          }),
+        );
       })
       .catch(res => {
-        setApiStatus(s => ({ ...s, failure: true }));
+        failure();
       })
       .finally(() => {
-        appContext[1](hideModalUploadBoard());
-        initApiStatus();
+        end();
       });
   };
   return (

@@ -2,40 +2,28 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from 'components/Common/Button';
-import { navLinkActiveStyle } from 'styles/mixins';
+import { activeStyle } from 'styles/mixins';
 import EditUser from './EditUser';
 import * as jss from './Header-styles';
 
 const HeaderView = ({ location }) => (
   <jss.Header pathname={location.pathname}>
     <jss.LogoContainer>
-      <Button exact to="/" noborder="true" activeStyle={navLinkActiveStyle}>
+      <Button exact to="/" noborder="true" activeStyle={activeStyle}>
         ClothesThey
       </Button>
     </jss.LogoContainer>
     <jss.CategoryContainer>
-      <Button
-        to="/board/teenager"
-        noborder="true"
-        activeStyle={navLinkActiveStyle}
-      >
+      <Button to="/board/teenager" noborder="true" activeStyle={activeStyle}>
         10대
       </Button>
-      <Button
-        to="/board/college"
-        noborder="true"
-        activeStyle={navLinkActiveStyle}
-      >
+      <Button to="/board/college" noborder="true" activeStyle={activeStyle}>
         대학생
       </Button>
-      <Button
-        to="/board/ordinary"
-        noborder="true"
-        activeStyle={navLinkActiveStyle}
-      >
+      <Button to="/board/ordinary" noborder="true" activeStyle={activeStyle}>
         일반인
       </Button>
-      <Button to="/board/free" noborder="true" activeStyle={navLinkActiveStyle}>
+      <Button to="/board/free" noborder="true" activeStyle={activeStyle}>
         자유
       </Button>
     </jss.CategoryContainer>

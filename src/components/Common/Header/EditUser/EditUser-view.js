@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'components/Common/Button';
-import { navLinkActiveStyle } from 'styles/mixins';
+import { activeStyle } from 'styles/mixins';
 import Loader from 'components/Loading';
 import * as jss from './EditUser-styles';
 
@@ -22,7 +22,7 @@ const EditUserView = ({
     if (user.get('nickname')) {
       return (
         <jss.Container>
-          <Button to="/board/me" activeStyle={navLinkActiveStyle}>
+          <Button to="/board/me" activeStyle={activeStyle}>
             {user.get('nickname')}
           </Button>
           <Button onClick={onLogOutClick}>

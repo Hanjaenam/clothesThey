@@ -13,7 +13,7 @@ export const paddingX = size => css`
   padding: 0 ${props => props.theme.GAP[size]};
 `;
 
-export const navLinkActiveStyle = {
+export const activeStyle = {
   color: 'white',
   backgroundColor: theme.PRIMARY,
 };

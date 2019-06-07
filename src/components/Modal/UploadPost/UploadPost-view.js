@@ -66,11 +66,12 @@ UploadPost.propTypes = {
   }).isRequired,
   previewUrl: PropTypes.string,
   handleSubmit: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
 };
 
 UploadPost.defaultProps = {
   previewUrl: undefined,
+  loading: undefined,
 };
 
 export default UploadPost;

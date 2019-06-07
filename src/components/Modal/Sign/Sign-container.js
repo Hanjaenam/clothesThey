@@ -13,21 +13,21 @@ const ModalSignContainer = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [helpMsg, setHelpMsg] = useState(undefined);
-  const { apiStatus, setApiStatus, initApiStatus } = useApiStatus();
+  const [errorMsg, setErrorMsg] = useState(undefined);
+  const { apiStatus, loading, failure, end } = useApiStatus();
   const isEmpty = (inputElement, msg) => {
     if (inputElement.value === '') {
       inputElement.setAttribute('placeholder-fix', false);
       inputElement.style.borderColor = theme.DANGER;
       inputElement.nextSibling.style.color = theme.DANGER;
       inputElement.focus();
-      setHelpMsg(msg);
+      setErrorMsg(msg);
       return true;
     }
     inputElement.setAttribute('placeholder-fix', true);
     inputElement.style.borderColor = theme.SUCCESS;
     inputElement.nextSibling.style.color = theme.SUCCESS;
-    setHelpMsg(null);
+    setErrorMsg(null);
     return false;
   };
 
@@ -87,12 +87,12 @@ const ModalSignContainer = () => {
     ) {
       inputCPassword.style.borderColor = theme.DANGER;
       inputCPassword.nextSibling.style.color = theme.DANGER;
-      setHelpMsg('두 비밀번호가 다릅니다.');
+      setErrorMsg('두 비밀번호가 다릅니다.');
       return false;
     }
     inputCPassword.style.borderColor = theme.SUCCESS;
     inputCPassword.nextSibling.style.color = theme.SUCCESS;
-    setHelpMsg(null);
+    setErrorMsg(null);
     return true;
   };
 
@@ -107,6 +107,7 @@ const ModalSignContainer = () => {
   const onCancel = () => {
     if (apiStatus.loading) return;
     appContext[1](hideModalSign());
+    setErrorMsg(null);
   };
 
   const isValid = e => {
@@ -114,40 +115,74 @@ const ModalSignContainer = () => {
     if (title === '회원가입' && !isValidCPassword(e)) return false;
     return true;
   };
+  const errorEmail = () => {
+    const inputEmail = document.querySelectorAll(
+      `.${Input.styledComponentId}`,
+    )[0];
+    inputEmail.style.borderColor = theme.DANGER;
+    inputEmail.nextSibling.style.color = theme.DANGER;
+    inputEmail.focus();
+  };
+  const errorPassword = () => {
+    const inputPassword = document.querySelectorAll(
+      `.${Input.styledComponentId}`,
+    )[1];
+    inputPassword.style.borderColor = theme.DANGER;
+    inputPassword.nextSibling.style.color = theme.DANGER;
+    inputPassword.focus();
+  };
+  const errorCPassword = () => {
+    const inputCPassword = document.querySelectorAll(
+      `.${Input.styledComponentId}`,
+    )[2];
+    inputCPassword.style.borderColor = theme.DANGER;
+    inputCPassword.nextSibling.style.color = theme.DANGER;
+    inputCPassword.focus();
+  };
   const processApi = () => {
-    if (title === '회원가입') {
-      setApiStatus(s => ({ ...s, loading: true }));
+    if (title === '로그인') {
+      loading();
+      userLogIn({ email, password })
+        .then(res => {
+          appContext[1](logInUser(res.data));
+          appContext[1](hideModalSign());
+        })
+        .catch(err => {
+          failure();
+          if (err.response.data[0] === 'email') {
+            errorEmail();
+          } else if (err.response.data[0] === 'password') {
+            errorPassword();
+          }
+          setErrorMsg(err.response.data[1]);
+        })
+        .finally(() => {
+          end();
+        });
+    } else {
+      loading();
       userRegister({
         email,
         password,
         confirmPassword,
       })
         .then(res => {
-          setApiStatus(s => ({ ...s, loading: false }));
           appContext[1](logInUser(res.data));
+          appContext[1](hideModalSign());
         })
-        .catch(res => {
-          setApiStatus(s => ({ ...s, failure: true }));
-          setHelpMsg('not match');
+        .catch(err => {
+          failure();
+          if (err.response.data[0] === 'email') {
+            errorEmail();
+          } else if (err.response.data[0] === 'password') {
+            errorPassword();
+          } else {
+            errorCPassword();
+          }
+          setErrorMsg(err.response.data[1]);
         })
         .finally(() => {
-          initApiStatus();
-          appContext[1](hideModalSign());
-        });
-    } else {
-      setApiStatus(s => ({ failure: false, loading: true }));
-      userLogIn({ email, password })
-        .then(res => {
-          setApiStatus(s => ({ failure: false, loading: false }));
-          appContext[1](logInUser(res.data));
-        })
-        .catch((res, a) => {
-          setApiStatus(s => ({ failure: true, loading: false }));
-          setHelpMsg('not match');
-        })
-        .finally(() => {
-          initApiStatus();
-          appContext[1](hideModalSign());
+          end();
         });
     }
   };
@@ -181,7 +216,7 @@ const ModalSignContainer = () => {
         onMouseLeave={onMouseLeave}
         onCancel={onCancel}
         onConfirm={onConfirm}
-        helpMsg={helpMsg}
+        errorMsg={errorMsg}
         onEmailChange={isValidEmail}
         onPasswordChange={isValidPassword}
         onCPasswordChange={isValidCPassword}

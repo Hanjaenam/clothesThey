@@ -1,5 +1,6 @@
 import { createContext } from 'react';
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
+import { createAction } from 'redux-actions';
 
 export const initialState = Map({
   modal: {
@@ -12,6 +13,7 @@ export const initialState = Map({
     }),
   },
   user: undefined,
+  newPost: undefined,
 });
 
 const SHOW_MODAL_UPLOAD_BOARD = 'app/SHOW_MODAL_UPLOAD_BOARD';
@@ -22,6 +24,7 @@ const SET_MODAL_SIGN_TITLE = 'app/SET_MODAL_SIGN_TITLE';
 const LOG_IN_USER = 'app/LOG_IN_USER';
 const LOG_OUT_USER = 'app/LOG_OUT_USER';
 const SET_USER = 'app/SET_USER';
+const UNSHIFT_NEW_POST = 'app/UNSHIFT_NEW_POST';
 
 export const showModalUploadBoard = () => ({
   type: SHOW_MODAL_UPLOAD_BOARD,
@@ -39,8 +42,9 @@ export const setModalSignTitle = title => ({
   type: SET_MODAL_SIGN_TITLE,
   title,
 });
-export const logInUser = ({ email, nickname }) => ({
+export const logInUser = ({ id, email, nickname }) => ({
   type: LOG_IN_USER,
+  id,
   email,
   nickname,
 });
@@ -51,6 +55,7 @@ export const setUser = ({ nickname }) => ({
   type: SET_USER,
   nickname,
 });
+export const unshiftNewPost = createAction(UNSHIFT_NEW_POST);
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -65,8 +70,8 @@ export const reducer = (state, action) => {
     case SET_MODAL_SIGN_TITLE:
       return state.setIn(['modal', 'sign', 'title'], action.title);
     case LOG_IN_USER: {
-      const { email, nickname } = action;
-      return state.set('user', Map({ email, nickname }));
+      const { id, email, nickname } = action;
+      return state.set('user', Map({ id, email, nickname }));
     }
     case LOG_OUT_USER: {
       return state.set('user', undefined);
@@ -74,6 +79,10 @@ export const reducer = (state, action) => {
     case SET_USER: {
       const { nickname } = action;
       return state.setIn(['user', 'nickname'], nickname);
+    }
+    case UNSHIFT_NEW_POST: {
+      const { payload: data } = action;
+      return state.set('newPost', fromJS(data));
     }
     default:
       return state;

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
-import Loader from 'components/Loading';
+import PostList from 'components/Board/PostList';
 import * as jss from './Board-styles';
 
 const TITLE = {
@@ -14,7 +14,7 @@ const TITLE = {
   free: '자유',
 };
 
-const BoardView = ({ children, onClick, category, loading }) => {
+const BoardView = ({ onClick, category }) => {
   return (
     <>
       <Helmet>
@@ -22,10 +22,7 @@ const BoardView = ({ children, onClick, category, loading }) => {
       </Helmet>
       <jss.Container>
         <ItemList />
-        <jss.BoardContainer>
-          {children}
-          {loading ? <Loader /> : null}
-        </jss.BoardContainer>
+        <PostList />
         <jss.GoToTheTop onClick={onClick}>
           <FontAwesomeIcon icon={faArrowUp} />
         </jss.GoToTheTop>
