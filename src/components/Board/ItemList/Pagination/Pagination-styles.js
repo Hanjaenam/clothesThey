@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-  .error {
+  .errorMessage {
     width: 80%;
     text-align: center;
   }

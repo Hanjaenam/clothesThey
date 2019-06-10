@@ -13,7 +13,7 @@ export const initialState = Map({
     }),
   },
   user: undefined,
-  newPost: undefined,
+  post: undefined,
 });
 
 const SHOW_MODAL_UPLOAD_BOARD = 'app/SHOW_MODAL_UPLOAD_BOARD';
@@ -25,6 +25,8 @@ const LOG_IN_USER = 'app/LOG_IN_USER';
 const LOG_OUT_USER = 'app/LOG_OUT_USER';
 const SET_USER = 'app/SET_USER';
 const UNSHIFT_NEW_POST = 'app/UNSHIFT_NEW_POST';
+const SERVE_POST_DATA = 'app/SERVE_POST_DATA';
+const CLEAR_POST_DATA = 'app/CLEAR_POST_DATA';
 
 export const showModalUploadBoard = () => ({
   type: SHOW_MODAL_UPLOAD_BOARD,
@@ -56,6 +58,8 @@ export const setUser = ({ nickname }) => ({
   nickname,
 });
 export const unshiftNewPost = createAction(UNSHIFT_NEW_POST);
+export const servePostData = createAction(SERVE_POST_DATA);
+export const clearPostData = createAction(CLEAR_POST_DATA);
 
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -82,7 +86,17 @@ export const reducer = (state, action) => {
     }
     case UNSHIFT_NEW_POST: {
       const { payload: data } = action;
-      return state.set('newPost', fromJS(data));
+      data.type = 'new';
+      return state.set('post', fromJS(data));
+    }
+    case SERVE_POST_DATA: {
+      const { previewUrl, title, content } = action.payload;
+      return state
+        .set('post', Map({ type: 'patch', previewUrl, title, content }))
+        .setIn(['modal', 'uploadBoard', 'visible'], true);
+    }
+    case CLEAR_POST_DATA: {
+      return state.set('post', undefined);
     }
     default:
       return state;

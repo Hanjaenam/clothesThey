@@ -1,24 +1,42 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import AppContext, {
   hideModalUploadBoard,
   unshiftNewPost,
+  clearPostData,
 } from 'components/App/App-store';
 import ModalWrapper from 'components/Common/ModalWrapper';
 import { useChange, useApiStatus } from 'lib/hooks';
-import { createPost } from 'lib/api';
+import { createPost, patchPost } from 'lib/api';
+import theme from 'styles/theme';
 import UploadView from './UploadPost-view';
 
 const UploadContainer = ({ location }) => {
   const appContext = useContext(AppContext);
   const [previewUrl, setPreviewUrl] = useState('');
   const { apiStatus, loading, failure, end } = useApiStatus();
+  const [errorMsg, setErrorMsg] = useState(undefined);
   const fileRef = useRef();
   const title = useChange();
   const content = useChange();
+  const reader = new FileReader();
+  const titleRef = useRef();
+  const contentRef = useRef();
+  const thumbnailRef = useRef();
+  useEffect(() => {
+    if (
+      appContext[0].get('post') &&
+      appContext[0].getIn(['post', 'type']) === 'patch'
+    ) {
+      setPreviewUrl(appContext[0].getIn(['post', 'previewUrl']));
+      titleRef.current.value = appContext[0].getIn(['post', 'title']);
+      titleRef.current.setAttribute('placeholder-fix', true);
+      contentRef.current.value = appContext[0].getIn(['post', 'content']);
+      contentRef.current.setAttribute('placeholder-fix', true);
+    }
+  }, [appContext[0].get('post')]);
   const handleImageChange = e => {
     e.preventDefault();
-    const reader = new FileReader();
     const file = e.target.files[0];
     reader.onloadend = () => {
       setPreviewUrl(reader.result);
@@ -37,8 +55,33 @@ const UploadContainer = ({ location }) => {
     );
     return categoris[idx].substr(7);
   };
-  const handleSubmit = e => {
-    e.preventDefault();
+  const onCancel = () => {
+    setPreviewUrl(null);
+    if (appContext[0].get('post')) appContext[1](clearPostData());
+    appContext[1](hideModalUploadBoard());
+  };
+  const isEmpty = () => {
+    if (previewUrl && title.value && content.value) {
+      setErrorMsg(undefined);
+      return false;
+    }
+    if (!previewUrl) {
+      setErrorMsg('사진을 선택해주세요.');
+      thumbnailRef.current.style.borderColor = theme.DANGER;
+    } else if (!title.value) {
+      setErrorMsg('제목을 입력해주세요.');
+      titleRef.current.style.borderColor = theme.DANGER;
+      titleRef.current.nextSibling.style.color = theme.DANGER;
+      titleRef.current.focus();
+    } else if (!content.value) {
+      setErrorMsg('내용을 입력해주세요.');
+      contentRef.current.style.borderColor = theme.DANGER;
+      contentRef.current.nextSibling.style.color = theme.DANGER;
+      contentRef.current.focus();
+    }
+    return true;
+  };
+  const processCreateApi = () => {
     const formData = new FormData();
     // 이곳 이름도 server와 같게 해주어야 서버쪽에서 body data를 원활하게 받을 수 있다.
     // fileRef의 네임은 server와 같아야한다.
@@ -67,6 +110,29 @@ const UploadContainer = ({ location }) => {
         end();
       });
   };
+  const isSame = () => {
+    const {
+      title: servedTitle,
+      content: servedContent,
+      previewUrl: servedPreviewUrl,
+    } = appContext[0].get('post').toJS();
+    // 최소 1개 이상은 달라야 수정 진행
+    if (
+      previewUrl.value !== servedPreviewUrl ||
+      title !== servedTitle ||
+      content.value !== servedContent
+    )
+      return false;
+  };
+  const processPatchApi = () => {
+    if (isSame()) return;
+  };
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (isEmpty()) return;
+    if (appContext[0].get('post')) processCreateApi();
+    else processPatchApi();
+  };
   return (
     <ModalWrapper
       visible={appContext[0].getIn(['modal', 'uploadBoard', 'visible'])}
@@ -74,7 +140,7 @@ const UploadContainer = ({ location }) => {
       loading={apiStatus.loading}
     >
       <UploadView
-        onCancel={() => appContext[1](hideModalUploadBoard())}
+        onCancel={onCancel}
         title={title}
         content={content}
         handleImageChange={handleImageChange}
@@ -82,6 +148,11 @@ const UploadContainer = ({ location }) => {
         fileRef={fileRef}
         handleSubmit={handleSubmit}
         loading={apiStatus.loading}
+        titleRef={titleRef}
+        contentRef={contentRef}
+        thumbnailRef={thumbnailRef}
+        errorMsg={errorMsg}
+        servedData={appContext[0].get('post')}
       />
     </ModalWrapper>
   );

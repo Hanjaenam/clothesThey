@@ -38,4 +38,6 @@ export const ModalWrapper = styled.div`
       ${modalSignLeaveAnimation}
     }
   }
+  > .errorMessage {
+  }
 `;

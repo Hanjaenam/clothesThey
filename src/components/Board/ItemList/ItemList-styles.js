@@ -5,15 +5,14 @@ import breakpoints from 'styled-components-breakpoint';
 export const ItemContainer = styled.div`
   /* display: grid; */
   display: none;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: auto 1fr auto;
   background-color: white;
   position: fixed;
   width: 100%;
   box-sizing: border-box;
   min-width: ${props => `${props.theme.breakpoints.md}px`};
   padding: 0 ${props => props.theme.GAP.SMALL};
-  ${breakpoints('lg')`
-  padding: 0 ${props => props.theme.GAP.REGULAR};`};
+  ${breakpoints('lg')`padding: 0 ${props => props.theme.GAP.REGULAR};`};
   height: ${props => props.theme.SIZE.BOARD.ITEM_LIST};
   border-bottom-left-radius: ${props => props.theme.BORDER_RADIUS.REGULAR};
   border-bottom-right-radius: ${props => props.theme.BORDER_RADIUS.REGULAR};
@@ -28,14 +27,17 @@ export const InputContainer = styled.div`
   justify-self: flex-start;
   ${pairCss.inputButton()}
   height: 90%;
-  width: 100%;
 `;
 
 export const TextInput = styled.input`
   all: unset;
-  flex: 1;
+  /* flex: 1; */
+  box-sizing: border-box;
   padding: 0 ${props => props.theme.GAP.REGULAR};
   transition: ${props => props.theme.TRANSITION.REGULAR};
+  &:focus {
+    width: ${props => props.theme.SIZE.BOARD.SEARCH_INPUT};
+  }
 `;
 
 export const PaginationContainer = styled.div`

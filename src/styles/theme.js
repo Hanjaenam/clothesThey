@@ -38,9 +38,10 @@ export default {
     HOME_HEADER: '60px',
     BOARD: {
       HEADER: '45px',
-      ITEM_LIST_SIDE: '10rem',
+      // ITEM_LIST_SIDE: '10rem',
       PAGINATION_NUMBER: '30px',
       ITEM_LIST: '2.5rem',
+      SEARCH_INPUT: '20rem',
     },
     PHOTO: {
       WEEKLY_BEST: '400px',

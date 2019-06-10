@@ -11,9 +11,13 @@
 - [x] after header container logout => button loading component
 - [x] after sign container register => button loading compnent
 - [] 글올리기 hover -> "닉네임을 설정해주세요"
-- [] 로그인 -> 아이디, 비밀번호 뭐가 틀렸는지
-- [] 회원기입 -> 아이디 존재하는지
-- [] post : reducer로 모두 변경
+- [x] 로그인 -> 아이디, 비밀번호 뭐가 틀렸는지
+- [x] 회원기입 -> 아이디 존재하는지
+- [x] post : reducer로 모두 변경
+- [] post update  - 1
+- [] pagination   - 2
+- [] like, view 내림차순 보기 - 마지막
+- [] comment
 
 # version
 v1

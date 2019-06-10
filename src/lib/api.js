@@ -52,6 +52,17 @@ export const deletePost = ({ id, key }) => {
   return axios.delete('/post/delete', { data: { id, key } });
 };
 
+export const patchPost = ({ id, key, formData }) => {
+  const config = {
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+  };
+  formData.append('key', key);
+  formData.append('id', id);
+  return axios.patch('/post/updata', formData, config);
+};
+
 export const addLikePost = ({ id }) => {
   return axios.get(`/post/addLike/${id}`);
 };

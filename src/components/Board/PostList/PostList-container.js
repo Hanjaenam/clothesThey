@@ -35,10 +35,13 @@ const PostList = () => {
   }, [boardContext.category]);
 
   useEffect(() => {
-    if (appContext[0].get('newPost')) {
-      dispatch(unshiftPost(appContext[0].get('newPost')));
+    if (
+      appContext[0].get('post') &&
+      appContext[0].getIn(['post', 'type']) === 'new'
+    ) {
+      dispatch(unshiftPost(appContext[0].get('post')));
     }
-  }, [appContext[0].get('newPost')]);
+  }, [appContext[0].get('post')]);
 
   const postComponents = () => {
     const postData = state

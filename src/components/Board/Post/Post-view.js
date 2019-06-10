@@ -31,6 +31,7 @@ const PostView = ({
   showEdit,
   category,
   onDeleteClick,
+  onPatchClick,
 }) => {
   return (
     <jss.Container>
@@ -76,7 +77,7 @@ const PostView = ({
                 <FontAwesomeIcon icon={faAngleRight} />
               </Button>
               <Button onClick={onDeleteClick}>삭제</Button>
-              <Button>수정</Button>
+              <Button onClick={onPatchClick}>수정</Button>
             </>
           ) : (
             <>
@@ -108,6 +109,8 @@ PostView.propTypes = {
   hideEdit: PropTypes.func.isRequired,
   showEdit: PropTypes.func.isRequired,
   category: PropTypes.string.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
+  onPatchClick: PropTypes.func.isRequired,
 };
 
 PostView.defaultProps = {

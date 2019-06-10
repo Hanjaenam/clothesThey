@@ -6,14 +6,20 @@ export const UploadPostContainer = styled(jss.Container)`
   transform: translateY(40%);
   padding-top: ${props => props.theme.GAP.REGULAR};
   padding-bottom: ${props => props.theme.GAP.REGULAR};
-  .loading {
+  .errorMessage{
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translate(-50%,-100%);
+  }
+  /* .loading {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: ${props => props.theme.ALPHA};
-  }
+  } */
 `;
 
 export const UploadPhotoContainer = styled(jss.ThumbnailContainer)`

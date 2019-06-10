@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { addLikePost, deletePost as apiDeletePost } from 'lib/api';
 import { useApiStatus } from 'lib/hooks';
-import AppStore from 'components/App/App-store';
+import AppStore, { servePostData } from 'components/App/App-store';
 import BoardStore from 'pages/Board/Board-store';
 import PostListStore, {
   addLike,
@@ -77,7 +77,9 @@ const PostContainer = ({
         deleteEnd(isDelete);
       });
   };
-
+  const onPatchClick = () => {
+    appContext[1](servePostData({ title, content, previewUrl: imageUrl }));
+  };
   return (
     <PostView
       id={id}
@@ -101,6 +103,7 @@ const PostContainer = ({
       showEdit={() => setVisibleEdit(true)}
       category={boardContext.category}
       onDeleteClick={onDeleteClick}
+      onPatchClick={onPatchClick}
     />
   );
 };

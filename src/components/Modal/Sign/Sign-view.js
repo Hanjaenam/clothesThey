@@ -63,7 +63,7 @@ const ModalSign = ({
           취소
         </Button>
       </jss.ButtonContainer>
-      <ErrorMessage>{errorMsg}</ErrorMessage>
+      <ErrorMessage message={errorMsg} />
     </jss.Container>
   );
 };

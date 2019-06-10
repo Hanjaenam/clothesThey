@@ -1,10 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as jss from './ErrorMessage-styles';
 
-const FailureMessageView = ({ children }) =>
-  children ? (
-    <jss.FailureContainer className="error">
-      <span>{children}</span>
+const ErrorMessageView = ({ message }) =>
+  message ? (
+    <jss.FailureContainer className="errorMessage">
+      <span>{message}</span>
     </jss.FailureContainer>
   ) : null;
-export default FailureMessageView;
+
+ErrorMessageView.propTypes = {
+  message: PropTypes.string,
+};
+
+ErrorMessageView.defaultProps = {
+  message: undefined,
+};
+
+export default ErrorMessageView;
