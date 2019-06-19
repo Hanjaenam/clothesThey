@@ -35,7 +35,7 @@ export const userPatch = ({ nickname }) => {
   return axios.patch('/user/patch', { nickname });
 };
 
-export const readPost = ({ page, category }) => {
+export const readPost = ({ page = 1, category }) => {
   return axios.get(`/post/read/${category}?page=${page}`);
 };
 

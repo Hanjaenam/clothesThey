@@ -1,1 +1,1 @@
-export { default } from './ThumbnailList-view';
+export { default } from './ThumbnailList-container';
