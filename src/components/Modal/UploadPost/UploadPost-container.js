@@ -130,8 +130,8 @@ const UploadContainer = ({ location }) => {
   const handleSubmit = e => {
     e.preventDefault();
     if (isEmpty()) return;
-    if (appContext[0].get('post')) processCreateApi();
-    else processPatchApi();
+    if (appContext[0].get('post')) processPatchApi();
+    else processCreateApi();
   };
   return (
     <ModalWrapper
